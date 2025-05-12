@@ -4,7 +4,7 @@
 \alias{deal_cards}
 \title{Deal Cards to Players and Dealer}
 \usage{
-deal_cards(num_players, deck)
+deal_cards(num_players, deck, split = FALSE)
 }
 \arguments{
 \item{num_players}{Integer. The number of players in the game.}

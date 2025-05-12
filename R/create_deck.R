@@ -8,8 +8,6 @@
 #' @export
 
 create_deck <- function() {
-  deck <- c(2:10, "J", "Q", "K", "A")
-  deck <- rep(deck, 4)  # Four suits
-  deck <- sample(deck)  # Shuffle the deck
-  return(deck)
+  deck <- rep(c(2:10, "J", "Q", "K", "A"), 4)  # Four suits
+  sample(deck)  # Return shuffled deck
 }

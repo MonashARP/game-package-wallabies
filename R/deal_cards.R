@@ -7,14 +7,19 @@
 #' deck <- create_deck()
 #' game <- deal_cards(2, deck)
 #' @export
-deal_cards <- function(num_players, deck) {
-  player_hands <- list()
-  dealer_hand <- sample(deck, 2)
-  deck <- setdiff(deck, dealer_hand)
+deal_cards <- function(num_players, deck, split = FALSE) {
+  player_hands <- vector("list", num_players)
+  dealer_hand <- deck[1:2]
+  deck <- deck[-(1:2)]  # Remove the first two cards (dealer)
 
   for (i in 1:num_players) {
-    player_hands[[i]] <- sample(deck, 2)
-    deck <- setdiff(deck, player_hands[[i]])
+    if (split) {
+      player_hands[[i]] <- list(deck[1:2], deck[3])  # Split into two hands
+      deck <- deck[-(1:3)]  # Remove dealt cards
+    } else {
+      player_hands[[i]] <- deck[1:2]
+      deck <- deck[-(1:2)]  # Remove dealt cards
+    }
   }
 
   return(list(player_hands = player_hands, dealer_hand = dealer_hand, deck = deck))

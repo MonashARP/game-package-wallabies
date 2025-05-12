@@ -7,7 +7,7 @@
 #' score_hand(c("A", "9"))
 #' @export
 score_hand <- function(hand) {
-  values <- c(2:10, 10, 10, 10, 11)  # Card values for J, Q, K, A
+  values <- c(2:10, 10, 10, 10, 11)
   card_values <- values[match(hand, c(2:10, "J", "Q", "K", "A"))]
   score <- sum(card_values)
 
@@ -18,5 +18,5 @@ score_hand <- function(hand) {
     aces <- aces - 1
   }
 
-  return(score)
+  score
 }
