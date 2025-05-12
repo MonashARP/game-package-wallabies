@@ -7,17 +7,17 @@
 deal_cards(num_players, deck, split = FALSE)
 }
 \arguments{
-\item{num_players}{Integer. The number of players in the game.}
+\item{num_players}{Integer. Number of players in the game.}
 
-\item{deck}{A vector representing the shuffled deck.}
+\item{deck}{A vector representing the shuffled deck of cards.}
+
+\item{split}{Logical. If TRUE, the function allows for splitting hands.}
 }
 \value{
-A list with hands for players and dealer.
+A list containing the player hands, dealer hand, and remaining deck.
 }
 \description{
-Deal Cards to Players and Dealer
-}
-\examples{
-deck <- create_deck()
-game <- deal_cards(2, deck)
+This function deals cards to the specified number of players and a dealer.
+Each player receives two cards, and the dealer receives two cards.
+Optionally, hands can be split.
 }
