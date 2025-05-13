@@ -17,11 +17,11 @@ Score the Cards in a Hand
 }
 \examples{
 # Score a hand with Ace and 9
-score_hand(c("A", "9"))
+score_hand(c("A♠", "9♣"))
 
 # Score a hand with multiple Aces
-score_hand(c("A", "A", "9"))
+score_hand(c("A♠", "A♦", "9♠"))
 
 # Score a hand with multiple Aces and a 10, resulting in a bust
-score_hand(c("A", "A", "A", "10"))
+score_hand(c("A♠", "A♦", "A♣", "10♠"))
 }
