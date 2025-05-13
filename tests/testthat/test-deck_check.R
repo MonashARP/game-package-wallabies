@@ -1,12 +1,12 @@
 library(testthat)
-test_that("create_deck generates the correct number of cards and valid cards", {
+test_that("create_board generates the correct number of cards and valid cards", {
 
   # Test with a single deck (52 cards)
-  deck_single <- create_deck(num_decks = 1)
+  deck_single <- create_board(num_decks = 1)
   expect_length(deck_single, 52)  # Single deck should have 52 cards
 
   # Test with multiple decks (e.g., 4 decks should give 208 cards)
-  deck_multiple <- create_deck(num_decks = 4)
+  deck_multiple <- create_board(num_decks = 4)
   expect_length(deck_multiple, 52 * 4)  # Four decks should have 208 cards
 
   # Ensure the deck contains valid cards (check if all cards contain valid ranks and suits)
