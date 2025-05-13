@@ -7,25 +7,13 @@
 dealer_play(dealer_hand, deck)
 }
 \arguments{
-\item{dealer_hand}{A character vector of the dealer's current hand (e.g., c("10♠", "6♥"))}
+\item{dealer_hand}{Character vector of the dealer's current hand}
 
-\item{deck}{A character vector representing the current remaining deck}
+\item{deck}{Character vector of the remaining deck}
 }
 \value{
-A list with:
-\describe{
-\item{dealer_hand}{The dealer's final hand}
-\item{deck}{The remaining deck after dealer draws}
-}
+A list with updated dealer_hand and deck
 }
 \description{
-The dealer continues to draw cards from the deck until their hand reaches at least 17 points,
-or until they hold 5 cards without busting (known as "five-card Charlie").
-}
-\examples{
-deck <- create_board(num_decks = 1)
-game <- deal_cards(num_players = 2, deck = deck)
-result <- dealer_play(game$dealer_hand, game$deck)
-result$dealer_hand
-
+Dealer draws cards until reaching at least 17, or a 5-card non-bust.
 }

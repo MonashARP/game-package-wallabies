@@ -7,16 +7,13 @@
 double_down(hand, deck)
 }
 \arguments{
-\item{hand}{A character vector of the player's current hand (must be 2 cards)}
+\item{hand}{Character vector of player hand}
 
-\item{deck}{The current deck}
+\item{deck}{Character vector of remaining deck}
 }
 \value{
-A list: new_hand (hand after drawing one more card), deck (updated), valid (TRUE/FALSE)
+A list with updated hand, updated deck, and validity flag
 }
 \description{
-Perform a double down action for a player
-}
-\examples{
-result <- double_down(c("5", "6"), deck)
+Player adds exactly one card to their initial 2-card hand.
 }

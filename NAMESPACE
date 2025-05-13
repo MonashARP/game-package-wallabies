@@ -3,4 +3,5 @@
 export(create_board)
 export(deal_cards)
 export(dealer_play)
+export(double_down)
 export(score_hand)
