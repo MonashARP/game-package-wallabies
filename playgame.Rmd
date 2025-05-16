@@ -1,0 +1,22 @@
+```{r}
+# Create a deck
+deck <- create_board(1)
+
+# Deal hands
+deal <- deal_cards(num_players = 2, deck = deck)
+
+# Score hands
+score_hand(unlist(deal$player_hands[[1]]))
+
+# Split hand
+player_split(c("8♣", "8♦"))
+
+# Dealer play
+dealer_result <- dealer_play(deal$dealer_hand, deal$deck)
+
+# Determine winner
+player_scores <- c(P1 = score_hand(unlist(deal$player_hands[[1]])))
+dealer_score <- score_hand(dealer_result$dealer_hand)
+announce_winner(player_scores, dealer_score)
+```
+
