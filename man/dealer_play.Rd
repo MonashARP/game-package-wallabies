@@ -15,5 +15,5 @@ dealer_play(dealer_hand, deck)
 A list with updated dealer_hand and deck
 }
 \description{
-Dealer draws cards until reaching at least 17, or a 5-card non-bust.
+Dealer draws cards until reaching at least 17, or hitting 5 cards without busting.
 }

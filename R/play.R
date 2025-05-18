@@ -25,7 +25,7 @@ play_blackjack <- function() {
   dealer_hand <- deal$dealer_hand
   deck <- deal$deck
 
-  cat("\n🃏 Dealer shows: ", dealer_hand, "\n\n")
+  cat("\n🤵 Dealer shows: ", dealer_hand, "\n\n")
 
   player_scores <- numeric(num_players)
   surrender_flags <- logical(num_players)
@@ -75,6 +75,7 @@ play_blackjack <- function() {
     if (split_check$can_split) {
       ans <- readline("  ➤ You have a pair. Split? (y/n): ")
       if (tolower(ans) == "y") {
+        split_scores <- c()
         for (j in 1:2) {
           shand <- split_check$hands[[j]]
           cat("  🔀 Playing split hand", j, ":", paste(shand, collapse = ", "), "\n")
@@ -95,11 +96,18 @@ play_blackjack <- function() {
           }
           final <- score_hand(shand)
           cat("    → Final score:", final, if (final > 21) "💥 BUST!" else "", "\n")
-          player_scores <- c(player_scores, final)
+          split_scores <- c(split_scores, final)
+        }
+        valid_scores <- split_scores[split_scores <= 21]
+        if (length(valid_scores) == 0) {
+          player_scores[i] <- max(split_scores)
+        } else {
+          player_scores[i] <- max(valid_scores)
         }
         next
       }
     }
+
 
     # Step 3: Double Down
     if (length(hand) == 2 && score_hand(hand) %in% c(10, 11)) {

@@ -4,42 +4,16 @@
 \alias{deal_cards}
 \title{Deal Cards to Players and Dealer}
 \usage{
-deal_cards(num_players, deck, split = FALSE)
+deal_cards(num_players, deck)
 }
 \arguments{
-\item{num_players}{Integer. Number of players in the game.}
+\item{num_players}{Number of players}
 
-\item{deck}{A vector representing the shuffled deck of cards.}
-
-\item{split}{Logical. If TRUE, the function allows for splitting hands.}
+\item{deck}{A shuffled deck of cards}
 }
 \value{
-A list containing the player hands, dealer hand, and remaining deck.
+A list with player_hands, dealer_hand (1 card), and remaining deck
 }
 \description{
-This function deals cards to the specified number of players and a dealer.
-Each player receives two cards, and the dealer receives two cards.
-Optionally, hands can be split.
-}
-\examples{
-# Create a shuffled deck with 1 deck (52 cards)
-deck <- create_board(num_decks = 1)
-
-# Deal cards to 2 players
-game <- deal_cards(num_players = 2, deck)
-
-# Display the hands of the players and the dealer
-game$player_hands  # Player hands
-game$dealer_hand   # Dealer hand
-
-# Create a shuffled deck with 4 decks (208 cards)
-deck_full <- create_board(num_decks = 4)
-
-# Deal cards to 2 players with a full deck
-game_full <- deal_cards(num_players = 2, deck_full)
-
-# Display the hands of the players and the dealer using a full deck
-game_full$player_hands  # Player hands
-game_full$dealer_hand   # Dealer hand
-
+Deals 2 cards to each player and 1 card to the dealer. Dealer's 2nd card comes later.
 }

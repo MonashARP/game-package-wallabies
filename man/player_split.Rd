@@ -7,11 +7,11 @@
 player_split(hand)
 }
 \arguments{
-\item{hand}{A character vector of two cards (e.g., c("A♠", "A♥")).}
+\item{hand}{A character vector of two cards (e.g., c("A♠", "A♥"))}
 }
 \value{
-A list with either two hands or the original hand.
+A list with can_split (logical) and hands (list of hands)
 }
 \description{
-This function checks if a player's hand can be split and returns individual hands if so.
+Checks if a player's hand can be split and returns split hands if allowed.
 }
