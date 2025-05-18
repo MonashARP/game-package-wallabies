@@ -14,6 +14,122 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+# Introduction
+
+Welcome to the Blackjack game vignette! This package allows you to simulate a full round of Blackjack with multiple players. Players can perform actions like hitting, standing, splitting, doubling down, and even making insurance bets. The game follows classic Blackjack rules, with enhancements for player interaction.
+
+This vignette will guide you through how to use the package, including creating a deck of cards, dealing hands, and playing a full game interactively.
+
+## Setup
+
+To start using the Blackjack package, you need to install it. If you haven't done so yet, you can install the package from GitHub using the following command:
+
+```{r setup, eval=FALSE}
+# remotes::install_github("MonashARP/game-package-wallabies")
 
 ```
+
+Once installed, you can load the package using:
+```{r}
+library(blackjack)
+```
+
+## Create a Shuffled Deck
+The first step in any Blackjack game is to create a shuffled deck of cards. You can specify how many decks you want to use.
+
+```{r}
+deck <- create_board(num_decks = 4)
+```
+
+In this example, we're using 4 decks. The deck is shuffled, and we're ready to deal cards to the players.
+
+## Deal Cards to Players
+Next, we deal 2 cards to each player and 1 card to the dealer. You can specify how many players will participate in the game.
+
+```{r}
+deal <- deal_cards(num_players = 2, deck)
+```
+
+
+```{r}
+player_hands <- deal$player_hands
+dealer_hand <- deal$dealer_hand
+deck <- deal$deck
+```
+
+In this case, we're dealing to 2 players. Each player receives 2 cards, and the dealer gets 1 card, which is visible to the players.
+
+## Score a Hand
+Each player's hand needs to be scored. The score_hand() function calculates the total score of a player's hand, accounting for Aces being worth either 1 or 11.
+```{r}
+score <- score_hand(player_hands[[1]])
+```
+
+For example, if Player 1 has an Ace and a 9, the score will be 20. The function automatically adjusts for Aces (if needed) to avoid busting.
+
+## Offering Insurance
+If the dealer’s upcard is an Ace, players can be offered insurance. The insurance_bet() function lets players accept or decline the offer. If the dealer has Blackjack, the insurance bet pays 2:1.
+
+```{r}
+insurance_results <- insurance_bet(dealer_hand, player_accepts = TRUE)
+```
+
+In this example, if the dealer's upcard is an Ace and the player accepts the insurance, the function checks if the dealer has Blackjack and handles the payout accordingly.
+
+## Split a Hand
+If a player has a pair (e.g., two Aces), they can choose to split the hand into two separate hands. The player_split() function checks if splitting is possible and splits the hand if the player has two cards of the same rank.
+
+```{r}
+split_check <- player_split(player_hands[[1]])
+if (split_check$can_split) {
+  cat("You have a pair! Let's split the hand.")
+}
+```
+
+After splitting, each hand will be played separately.
+
+## Double Down
+Players can also choose to double down, which allows them to double their bet and receive exactly one more card. The double_down() function performs this action.
+
+```{r}
+dd_result <- double_down(player_hands[[1]], deck)
+```
+
+If the player decides to double down, the hand is updated with one additional card, and the player is forced to stand.
+
+## Surrender
+Players have the option to surrender their hand and lose half of their bet. The surrender_hand() function allows the player to surrender.
+
+```{r}
+surrender_result <- surrender_hand(player_hands[[1]], allow_surrender = TRUE)
+```
+
+If the player decides to surrender, the game ends for that player with a loss of half the bet.
+
+## Playing the Full Game
+To play a full round of Blackjack interactively, use the play_blackjack() function. This function will walk the player through a series of steps, including deciding whether to hit, stand, split, double down, or surrender.
+
+```{r}
+play_blackjack()
+```
+
+The function prompts the user for input, such as the number of players, the number of decks, and choices for each action (e.g., hit or stand). It will then proceed to play through each player's turn, the dealer's turn, and announce the winner.
+
+## Announcing the Winner
+Once the game is complete, the announce_winner() function compares the players' scores with the dealer's score and announces the outcome of the game.
+```{r}
+outcomes <- announce_winner(player_scores, dealer_score)
+```
+
+The outcome for each player will be one of the following:
+
+"Win": The player wins the round.
+
+"Lose": The player loses the round.
+
+"Tie": The player ties with the dealer.
+
+
+
+
+

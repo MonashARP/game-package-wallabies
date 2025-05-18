@@ -1,0 +1,24 @@
+---
+title: "Blackjack Game Package"
+output: html_document
+---
+
+# Blackjack Game Package
+
+This package provides a simple implementation of a Blackjack game with functionalities for card dealing, scoring, splitting hands, doubling down, insurance betting, and more. It allows players to interactively play a round of Blackjack with multiple players.
+
+## Installation
+Make sure you have devtools installed, or install it using:
+```{r}
+install.packages("remotes")
+```
+
+To install the Blackjack package, use the following command in R:
+
+```{r}
+# remotes::install_github("MonashARP/game-package-wallabies")
+```
+
+
+
+
