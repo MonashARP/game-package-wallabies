@@ -18,4 +18,3 @@ double_down <- function(hand, deck) {
 
   list(new_hand = new_hand, deck = deck, valid = TRUE)
 }
-

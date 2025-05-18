@@ -1,9 +1,11 @@
-Package: blackjack
-Title: This package would allow mult-players to play the game - blackjack
+Package: Blackjack
+Title: This package would allow mult-players to play the game - Blackjack
 Version: 0.0.0.9000
-Authors@R: 
-    person("Sarah", "Liu", , "sliu0246@student.monash.edu", role = c("aut", "cre"),
-           comment = c(ORCID = "34500006"))
+Authors@R: c(
+    person("Sarah", "Liu", , "sliu0246@student.monash.edu", role = c("aut", "cre")),
+    person("Christy", "Lai","wlai0012@student.monash.edu",role = c("aut")),
+    person("Aditya Santosh","Rao","asan0096@student.monash.edu",role = c("aut"))
+           )
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8

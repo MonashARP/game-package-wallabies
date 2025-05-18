@@ -1,6 +1,6 @@
 #' Dealer's play logic according to Blackjack rules
 #'
-#' Dealer draws cards until reaching at least 17, or a 5-card non-bust.
+#' Dealer draws cards until reaching at least 17, or hitting 5 cards without busting.
 #'
 #' @param dealer_hand Character vector of the dealer's current hand
 #' @param deck Character vector of the remaining deck
@@ -16,14 +16,17 @@ dealer_play <- function(dealer_hand, deck) {
   while (length(dealer_hand) < 5) {
     score <- score_hand(dealer_hand)
     aces <- get_ace_count(dealer_hand)
-    is_soft <- score <= 21 && aces > 0 && (score + 10) <= 21
 
-    if (score > 21 || score > 17 || (score == 17 && !is_soft)) break
+    # Soft 17 check: has Ace and score == 17 before adjusting Ace
+    is_soft_17 <- score == 17 && aces > 0
 
-    # Draw card
+    if (score >= 17 && !is_soft_17) break
+
+    # Draw a card
     dealer_hand <- c(dealer_hand, deck[1])
     deck <- deck[-1]
   }
 
   list(dealer_hand = dealer_hand, deck = deck)
 }
+
