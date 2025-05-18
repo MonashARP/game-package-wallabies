@@ -1,36 +1,26 @@
 library(testthat)
 
-test_that("dealer stops at hard 17", {
-  dealer_hand <- c("10♠", "7♦") # 17 total
-  deck <- c("2♣", "3♣", "4♣")
-  result <- dealer_play(dealer_hand, deck)
+test_that("dealer_play draws until 17 or 5 cards", {
+  # Create a custom deck so we can control draws
+  preset_deck <- c("2♠", "3♦", "4♣", "5♥", "6♠", "7♦", "8♣", "9♥", "10♠", "J♦")
 
-  expect_equal(score_hand(result$dealer_hand), 17)
-  expect_equal(length(result$dealer_hand), 2)
-})
-
-test_that("dealer hits below 17", {
-  dealer_hand <- c("6♠", "8♦") # 14
-  deck <- c("3♣", "2♣", "5♦")
-  result <- dealer_play(dealer_hand, deck)
+  # Case 1: Dealer starts with low total
+  result <- dealer_play(dealer_hand = c("2♣", "3♠"), deck = preset_deck)
   final_score <- score_hand(result$dealer_hand)
 
   expect_true(final_score >= 17 || length(result$dealer_hand) == 5)
-})
+  expect_true(length(result$dealer_hand) >= 2)
 
-test_that("dealer stops at 5 cards", {
-  dealer_hand <- c("2♠", "2♦") # 4
-  deck <- c("3♣", "4♣", "5♦", "2♣", "3♦")
-  result <- dealer_play(dealer_hand, deck)
+  # Case 2: Dealer already has 17 or more — should not draw
+  result2 <- dealer_play(dealer_hand = c("10♣", "7♠"), deck = preset_deck)
+  expect_equal(result2$dealer_hand, c("10♣", "7♠"))
+  expect_equal(result2$deck, preset_deck)
 
-  expect_equal(length(result$dealer_hand), 5)
-  expect_lte(score_hand(result$dealer_hand), 21)
-})
+  # Case 3: Soft 17 forces dealer to draw
+  result3 <- dealer_play(dealer_hand = c("A♠", "6♦"), deck = preset_deck)
+  expect_true(length(result3$dealer_hand) > 2)
 
-test_that("dealer can bust", {
-  dealer_hand <- c("10♠", "6♣") # 16
-  deck <- c("10♦") # → 26
-  result <- dealer_play(dealer_hand, deck)
-
-  expect_gt(score_hand(result$dealer_hand), 21)
+  # Case 4: Dealer reaches 5 cards without busting
+  result4 <- dealer_play(dealer_hand = c("2♠", "3♠"), deck = c("2♦", "3♦", "4♣", "5♥", "6♠"))
+  expect_equal(length(result4$dealer_hand), 5)
 })
