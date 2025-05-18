@@ -1,6 +1,6 @@
 #' Create a Shuffled Deck of Cards
 #'
-#'
+#' @param num_decks The number of decks shuffled in the game
 #' @return A shuffled deck of cards.
 #' @examples
 #'

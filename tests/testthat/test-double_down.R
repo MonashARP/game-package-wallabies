@@ -1,5 +1,4 @@
 library(testthat)
-library(Blackjack)  # Replace with your actual package name
 
 test_that("double_down behaves correctly with valid and invalid hands", {
   deck <- c("9♠", "7♦", "5♣")

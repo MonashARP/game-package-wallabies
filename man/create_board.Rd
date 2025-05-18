@@ -6,6 +6,9 @@
 \usage{
 create_board(num_decks = 4)
 }
+\arguments{
+\item{num_decks}{The number of decks shuffled in the game}
+}
 \value{
 A shuffled deck of cards.
 }

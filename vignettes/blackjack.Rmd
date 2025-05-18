@@ -1,5 +1,5 @@
 ---
-title: "Blackjack instruction"
+title: "blackjack instruction"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Blackjack instruction}
@@ -15,5 +15,5 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(blackjack)
+
 ```
