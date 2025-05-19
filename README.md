@@ -1,36 +1,33 @@
-# blackjackGame 🂡🂱
 
-An R package to simulate Blackjack including dealing, scoring, player options (split, double down), dealer logic, and insurance.
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# Blackjack <img src="man/figures/Blackjack.png" align="right" height="80" width="80" alt="" />
+
+This package provides a simple implementation of a Blackjack game with
+functionalities for card dealing, scoring, splitting hands, doubling
+down, insurance betting, and more. It allows players to interactively
+play a round of Blackjack with multiple players.
 
 ## Installation
 
-```r
-# install.packages("devtools")
-devtools::install_github("your-username/blackjackGame")
+You can install the package from
+[GitHub](https://github.com/MonashARP/game-package-wallabies.git) by
+either:
+
+1.  Cloning the repository to your local machine:
+
+``` r
+git clone git@github.com:MonashARP/game-package-wallabies.git
 ```
 
-## Example game flow
+2.  Or downloading the ZIP file from GitHub and extracting it to a local
+    folder.
 
-```r
-library(blackjackGame)
+``` r
+# Install devtools if you haven't already
+install.packages("devtools")
 
-deck <- create_board()
-deal <- deal_cards(1, deck)
-player <- unlist(deal$player_hands[[1]])
-dealer <- deal$dealer_hand
+library(devtools)
 
-score_hand(player)
-score_hand(dealer)
-
-insurance_bet(dealer, player_accepts = TRUE)
-
-announce_winner(c(P1 = score_hand(player)), score_hand(dealer))
+devtools::install()
 ```
-
-## License
-
-This package is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-### Due Dates (uploaded by professor)
-
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/7yy0sjQL)

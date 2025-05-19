@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(blackjack)
+library(Blackjack)
 
-test_check("blackjack")
+test_check("Blackjack")

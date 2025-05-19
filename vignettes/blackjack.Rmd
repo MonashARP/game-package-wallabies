@@ -1,5 +1,5 @@
 ---
-title: "blackjack instruction"
+title: "Blackjack instruction"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Blackjack instruction}
@@ -24,20 +24,15 @@ This vignette will guide you through how to use the package, including creating 
 
 To start using the Blackjack package, you need to install it. If you haven't done so yet, you can install the package from GitHub using the following command:
 
-```{r setup, eval=FALSE}
-# remotes::install_github("MonashARP/game-package-wallabies")
-
-```
-
 Once installed, you can load the package using:
-```{r}
-library(blackjack)
+```{r eval=FALSE}
+library(Blackjack)
 ```
 
 ## Create a Shuffled Deck
 The first step in any Blackjack game is to create a shuffled deck of cards. You can specify how many decks you want to use.
 
-```{r}
+```{r eval=FALSE}
 deck <- create_board(num_decks = 4)
 ```
 
@@ -46,12 +41,12 @@ In this example, we're using 4 decks. The deck is shuffled, and we're ready to d
 ## Deal Cards to Players
 Next, we deal 2 cards to each player and 1 card to the dealer. You can specify how many players will participate in the game.
 
-```{r}
+```{r eval=FALSE}
 deal <- deal_cards(num_players = 2, deck)
 ```
 
 
-```{r}
+```{r eval=FALSE}
 player_hands <- deal$player_hands
 dealer_hand <- deal$dealer_hand
 deck <- deal$deck
@@ -61,7 +56,7 @@ In this case, we're dealing to 2 players. Each player receives 2 cards, and the 
 
 ## Score a Hand
 Each player's hand needs to be scored. The score_hand() function calculates the total score of a player's hand, accounting for Aces being worth either 1 or 11.
-```{r}
+```{r eval=FALSE}
 score <- score_hand(player_hands[[1]])
 ```
 
@@ -70,7 +65,7 @@ For example, if Player 1 has an Ace and a 9, the score will be 20. The function 
 ## Offering Insurance
 If the dealer’s upcard is an Ace, players can be offered insurance. The insurance_bet() function lets players accept or decline the offer. If the dealer has Blackjack, the insurance bet pays 2:1.
 
-```{r}
+```{r eval=FALSE}
 insurance_results <- insurance_bet(dealer_hand, player_accepts = TRUE)
 ```
 
@@ -79,7 +74,7 @@ In this example, if the dealer's upcard is an Ace and the player accepts the ins
 ## Split a Hand
 If a player has a pair (e.g., two Aces), they can choose to split the hand into two separate hands. The player_split() function checks if splitting is possible and splits the hand if the player has two cards of the same rank.
 
-```{r}
+```{r eval=FALSE}
 split_check <- player_split(player_hands[[1]])
 if (split_check$can_split) {
   cat("You have a pair! Let's split the hand.")
@@ -91,7 +86,7 @@ After splitting, each hand will be played separately.
 ## Double Down
 Players can also choose to double down, which allows them to double their bet and receive exactly one more card. The double_down() function performs this action.
 
-```{r}
+```{r eval=FALSE}
 dd_result <- double_down(player_hands[[1]], deck)
 ```
 
@@ -100,7 +95,7 @@ If the player decides to double down, the hand is updated with one additional ca
 ## Surrender
 Players have the option to surrender their hand and lose half of their bet. The surrender_hand() function allows the player to surrender.
 
-```{r}
+```{r eval=FALSE}
 surrender_result <- surrender_hand(player_hands[[1]], allow_surrender = TRUE)
 ```
 
@@ -109,7 +104,7 @@ If the player decides to surrender, the game ends for that player with a loss of
 ## Playing the Full Game
 To play a full round of Blackjack interactively, use the play_blackjack() function. This function will walk the player through a series of steps, including deciding whether to hit, stand, split, double down, or surrender.
 
-```{r}
+```{r eval=FALSE}
 play_blackjack()
 ```
 
@@ -117,7 +112,7 @@ The function prompts the user for input, such as the number of players, the numb
 
 ## Announcing the Winner
 Once the game is complete, the announce_winner() function compares the players' scores with the dealer's score and announces the outcome of the game.
-```{r}
+```{r eval=FALSE}
 outcomes <- announce_winner(player_scores, dealer_score)
 ```
 
