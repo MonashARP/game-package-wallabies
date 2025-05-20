@@ -57,18 +57,15 @@ Blackjack, also known as 21, is a popular card game played between a dealer and 
 
 4. **Winning**: The player wins if their hand total is closer to 21 than the dealer’s without busting. If both the player and dealer have the same total, it’s a tie (push). If the dealer busts, the player wins.
 
-# Using the `play()` Function
 
-The `play()` function allows you to play a full interactive game of Blackjack. This function handles the following:
+# Start experimenting and playing the game!
+By using **play_blackjack()**, you will be able to enter the world of Blackjack!
+
+This function allows you to play a full interactive game of Blackjack. This function handles the following:
 
 1. **Setup**: Prompts the user for the number of players and decks, and initializes the deck and hands.
 2. **Gameplay**: Guides each player through their turn, including options to hit, stand, double down, and split.
 3. **Dealer’s Play**: Handles the dealer's turn according to Blackjack rules.
 4. **Outcome**: Announces the winner for each player based on the final hand values.
 
-### Example Usage
 
-```{r}
-# Start a full game of Blackjack
-play_blackjack()
-```
