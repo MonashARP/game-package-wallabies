@@ -1,20 +1,20 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>/404.html</loc></url>
-<url><loc>/LICENSE-text.html</loc></url>
-<url><loc>/LICENSE.html</loc></url>
 <url><loc>/articles/blackjack.html</loc></url>
 <url><loc>/articles/index.html</loc></url>
 <url><loc>/authors.html</loc></url>
 <url><loc>/index.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/LICENSE.html</loc></url>
 <url><loc>/reference/announce_winner.html</loc></url>
 <url><loc>/reference/create_board.html</loc></url>
-<url><loc>/reference/deal_cards.html</loc></url>
 <url><loc>/reference/dealer_play.html</loc></url>
+<url><loc>/reference/deal_cards.html</loc></url>
 <url><loc>/reference/double_down.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/insurance_bet.html</loc></url>
-<url><loc>/reference/play_blackjack.html</loc></url>
 <url><loc>/reference/player_split.html</loc></url>
+<url><loc>/reference/play_blackjack.html</loc></url>
 <url><loc>/reference/score_hand.html</loc></url>
 <url><loc>/reference/surrender_hand.html</loc></url>
 </urlset>

@@ -21,7 +21,7 @@ git clone git@github.com:MonashARP/game-package-wallabies.git
 ```
 
 2.  Or downloading the ZIP file from GitHub and extracting it to a local
-    folder.
+    folder. Then run:
 
 ``` r
 # Install devtools if you haven't already

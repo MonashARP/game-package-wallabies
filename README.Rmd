@@ -25,7 +25,7 @@ You can install the package from [GitHub](https://github.com/MonashARP/game-pack
 git clone git@github.com:MonashARP/game-package-wallabies.git
 ```
 
-2. Or downloading the ZIP file from GitHub and extracting it to a local folder.
+2. Or downloading the ZIP file from GitHub and extracting it to a local folder. Then run:
 
 ```{r, eval = FALSE}
 # Install devtools if you haven't already

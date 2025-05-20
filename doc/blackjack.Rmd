@@ -23,7 +23,7 @@ are required to know.
 
 ## Setup
 
-To start using the Blackjack package, you need to install it. If you haven't done so yet, you can install the package from GitHub using the following command:
+To start using the Blackjack package, you need to install it. If you haven't done so yet, you can install the package from [GitHub](https://github.com/MonashARP/game-package-wallabies.git). For detailed instructions, please refer to the installation guide on the homepage.
 
 Once installed, you can load the package using:
 ```{r eval=FALSE}
@@ -59,7 +59,7 @@ Blackjack, also known as 21, is a popular card game played between a dealer and 
 
 
 # Start experimenting and playing the game!
-By using **play_blackjack()**, you will be able to enter the world of Blackjack!
+By using `play_blackjack()`, you will be able to enter the world of Blackjack!
 
 This function allows you to play a full interactive game of Blackjack. This function handles the following:
 
