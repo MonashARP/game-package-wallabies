@@ -1,31 +1,36 @@
 library(testthat)
 
-test_that("double_down behaves correctly with valid and invalid hands", {
-  deck <- c("9♠", "7♦", "5♣")
 
-  # Case 1: Valid double down (2-card hand)
-  hand <- c("10♠", "6♥")
-  result <- double_down(hand, deck)
+test_that("double_down correctly updates hand and deck", {
 
-  expect_length(result$new_hand, 3)
-  expect_equal(result$new_hand[1:2], hand)
-  expect_equal(result$new_hand[3], deck[1])
-  expect_equal(result$deck, deck[-1])
-  expect_true(result$valid)
+  # Create a custom deck with known values for controlled testing
+  preset_deck <- c("3♠", "7♦", "J♣", "4♠", "A♥")
 
-  # Case 2: Invalid double down (hand has 3 cards already)
-  hand_invalid <- c("10♠", "6♥", "2♣")
-  result_invalid <- double_down(hand_invalid, deck)
+  # Case 1: Valid double down (2 cards in hand)
+  hand <- c("5♠", "6♦")  # Player's hand with 2 cards
+  result <- double_down(hand, preset_deck)  # Perform double down
 
-  expect_equal(result_invalid$new_hand, hand_invalid)
-  expect_equal(result_invalid$deck, deck)
-  expect_false(result_invalid$valid)
+  # Check if hand is updated correctly
+  expect_equal(result$new_hand, c("5♠", "6♦", "3♠"))  # Hand should now have 3 cards
+  expect_equal(result$deck, c("7♦", "J♣", "4♠", "A♥"))  # One card should be drawn from the deck
+  expect_true(result$valid)  # It should be valid since the hand had 2 cards
 
-  # Case 3: Invalid double down (hand has 1 card only)
-  hand_invalid2 <- c("A♠")
-  result_invalid2 <- double_down(hand_invalid2, deck)
+  # Case 2: Invalid double down (more than 2 cards in hand)
+  hand_invalid <- c("5♠", "6♦", "3♥")  # Player's hand with 3 cards
+  result_invalid <- double_down(hand_invalid, preset_deck)
 
-  expect_equal(result_invalid2$new_hand, hand_invalid2)
-  expect_equal(result_invalid2$deck, deck)
-  expect_false(result_invalid2$valid)
+  # Check that hand and deck remain unchanged
+  expect_equal(result_invalid$new_hand, hand_invalid)  # Hand should not change
+  expect_equal(result_invalid$deck, preset_deck)  # Deck should not change
+  expect_false(result_invalid$valid)  # It should be invalid since the hand had more than 2 cards
+
+  # Case 3: Invalid double down (empty hand)
+  hand_empty <- c()  # Empty hand
+  result_empty <- double_down(hand_empty, preset_deck)
+
+  # Check that hand and deck remain unchanged
+  expect_equal(result_empty$new_hand, hand_empty)  # Hand should not change
+  expect_equal(result_empty$deck, preset_deck)  # Deck should not change
+  expect_false(result_empty$valid)  # It should be invalid since the hand had 0 cards
+
 })

@@ -7,7 +7,8 @@
 #'
 #' @return A list with updated hand, updated deck, and validity flag
 #' @export
-double_down <- function(hand, deck) {
+#'
+double_down <- function(hand, deck, rule = "standard") {
   if (length(hand) != 2) {
     return(list(new_hand = hand, deck = deck, valid = FALSE))
   }

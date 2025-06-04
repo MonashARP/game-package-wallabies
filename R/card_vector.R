@@ -86,7 +86,18 @@ card_is_face <- function(x) {
 }
 
 
-
+# Define math operations on card_vector objects (addition, subtraction, etc.)
+#' @export
+vec_arith.card_vector <- function(op, x, y, ...) {
+  # Check if 'y' is a numeric value or another card_vector
+  if (inherits(y, "card_vector")) {
+    x_vals <- card_rank(x)
+    y_vals <- card_rank(y)
+    return(vec_arith_base(op, x_vals, y_vals, ...))
+  } else {
+    return(vec_arith_base(op, x, y, ...))
+  }
+}
 
 
 

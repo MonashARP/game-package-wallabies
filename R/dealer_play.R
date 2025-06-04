@@ -7,14 +7,15 @@
 #'
 #' @return A list with updated dealer_hand and deck
 #' @export
-dealer_play <- function(dealer_hand, deck) {
+
+dealer_play <- function(dealer_hand, deck, rule = "standard") {
   get_ace_count <- function(hand) {
     ranks <- sapply(hand, function(card) strsplit(card, "[♠♦♥♣]")[[1]][1])
     sum(ranks == "A")
   }
 
   while (length(dealer_hand) < 5) {
-    score <- score_hand(dealer_hand)
+    score <- score_hand_dynamic(dealer_hand, rule)  # Use score_hand_dynamic instead of score_hand
     aces <- get_ace_count(dealer_hand)
 
     # Soft 17 check: has Ace and score == 17 before adjusting Ace

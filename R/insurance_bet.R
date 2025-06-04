@@ -14,7 +14,8 @@
 #' insurance_bet(c("9♠", "10♣"), player_accepts = TRUE)
 #'
 #' @export
-insurance_bet <- function(dealer_hand, player_accepts) {
+
+insurance_bet <- function(dealer_hand, player_accepts, rule = "standard") {
   # Validate input
   if (length(dealer_hand) != 2) {
     stop("Dealer must have two cards.")
@@ -44,13 +45,14 @@ insurance_bet <- function(dealer_hand, player_accepts) {
   result$insurance_paid <- TRUE
 
   # Determine if dealer has blackjack
-  dealer_score <- score_hand(dealer_hand)
+  dealer_score <- score_hand_dynamic(dealer_hand, rule = rule)  # Use dynamic scoring rule
   if (dealer_score == 21) {
     result$blackjack <- TRUE
-    result$payout <- 2  # 2:1 payout
+    result$payout <- 2  # 2:1 payout if dealer has blackjack
   } else {
-    result$payout <- -1  # Lost insurance
+    result$payout <- -1  # Lost insurance if dealer doesn't have blackjack
   }
 
   return(result)
 }
+
