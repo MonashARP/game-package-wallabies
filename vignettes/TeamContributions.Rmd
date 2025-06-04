@@ -1,0 +1,31 @@
+---
+title: "title = Team Contributions Statement"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{title = Team Contributions Statement}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+**Include a statement about the contribution of each team member. How did you divide the tasks? What did each person contribute to the final package?**
+
+## Part 1
+
+### Sarah
+- Set up the package and created the `DESCRIPTION` file.  
+- Implemented core functions: `score_hand`, `create_board`, and `deal_cards`.  
+- Developed and reviewed unit tests.  
+- Contributed to the README and added detailed content to the vignette.
+
+### Aditya
+- Created the functions `player_split`, `insurance`, and `determine_winner`.  
+- Developed and reviewed unit tests for his functions.  
+- Drafted the initial version of the README and vignette.
+
+### Christy
+- Designed the package logo.
+- Implemented additional game functions: `dealer_play`, `double_down`, `surrender`, and `play_blackjack`.  
+- Wrote unit tests for `dealer_play` and `double_down`.  
+- Performed final output checks and refined the vignette content.
+
+## Part 2
