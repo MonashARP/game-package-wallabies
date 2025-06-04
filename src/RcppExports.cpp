@@ -10,19 +10,20 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// create_deck_cpp
-CharacterVector create_deck_cpp();
-RcppExport SEXP _Blackjack_create_deck_cpp() {
+// cpp_score_hand
+int cpp_score_hand(Rcpp::CharacterVector hand);
+RcppExport SEXP _Blackjack_cpp_score_hand(SEXP handSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(create_deck_cpp());
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type hand(handSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_score_hand(hand));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_Blackjack_create_deck_cpp", (DL_FUNC) &_Blackjack_create_deck_cpp, 0},
+    {"_Blackjack_cpp_score_hand", (DL_FUNC) &_Blackjack_cpp_score_hand, 1},
     {NULL, NULL, 0}
 };
 
