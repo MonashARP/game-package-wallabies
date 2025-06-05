@@ -1,0 +1,58 @@
+---
+title: "Design Choices in the Blackjack Package"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Design Choices in the Blackjack Package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+
+The `Blackjack` package was designed to be a clean, extensible, and robust simulation of the game of Blackjack for R users. This vignette documents key architectural and design decisions, including function structure, argument choices, workflow, modularity, and use of R's object-oriented features.
+
+# Modular Functions & Workflow
+
+- **Single-purpose functions**: Each exported function has one clear job (dealing, scoring, splitting, insurance, etc.), supporting easier testing and extension.
+- **Composability**: Outputs are lists or atomic values, so functions can be chained or combined.
+- **Explicit game workflow**: The `play_blackjack()` function orchestrates setup, player turns, dealer play, and scoring, reflecting the real rules of Blackjack.
+- **Stateless helpers**: Most helpers (e.g. `player_split`, `card_is_face`, `score_hand`) are pure functions with no side effects.
+
+# Naming & Arguments
+
+- **Descriptive function names**: (e.g., `create_board`, `score_hand_dynamic`, `announce_winner`) reflect standard Blackjack terminology.
+- **Consistent argument naming**: Arguments like `hand`, `deck`, `num_players`, and `rule` are used consistently across functions.
+- **Customizable rules**: Functions like `score_hand_dynamic()` allow for standard or custom scoring via the `rule` argument.
+
+# Object-Oriented Design (S3/vctrs)
+
+- **Custom vctrs class**: Cards are represented by a custom `card_vector` S3/vctrs class. This enables:
+  - Type safety for all card-related operations
+  - Attractive printing or font (e.g., `[A♠]`)
+  - Integration with tidyverse/vctrs tools
+- **Supporting methods**: Implemented `format()`, `vec_ptype2()`, and `vec_cast()` methods for compatibility and usability.
+- **Extractors**: Generic-style functions `card_rank()`, `card_suit()`, `card_is_face()` for robust, reusable card information extraction.
+
+# User Workflow & Experience
+
+- **Interactive and scriptable**: Users can either step through the game interactively (`play_blackjack()`) or call lower-level functions for custom simulations or analyses.
+- **Defensive programming**: All functions check argument types/lengths and handle edge cases (e.g., invalid hands, out-of-bounds splits).
+- **Clear feedback**: Results are printed in a readable, game-like format (e.g., final hands, scores, win/lose messages).
+
+# Use of C++ and Performance
+
+- **Rcpp integration**: The package is ready for performance-critical calculations using C++ via Rcpp (e.g., for hand scoring or simulation loops).
+- **Separation of C++ logic**: C++ functions are wrapped with clear R interfaces for maintainability.
+
+# Internal Modularity
+
+- **Helper functions**: Many internal helpers support extensibility and code reuse (e.g., internal extraction of ranks/suits, Ace handling logic).
+- **S3 result objects**: Round results use an S3 class for structured, printable summaries (`new_round_result`).
+
+# Non-Standard Evaluation (NSE)
+
+- **Standard evaluation preferred**: The package avoids NSE for clarity and reproducibility. (If extended in the future, NSE could allow advanced data manipulation in summary/analysis functions.)
+
+# Summary
+
+The `Blackjack` package follows best practices for clarity, maintainability, modularity, and extensibility. It leverages modern R paradigms (vctrs, S3, Rcpp-ready), supports robust game workflows, and enables both beginners and advanced users to explore Blackjack gameplay and logic in R.
