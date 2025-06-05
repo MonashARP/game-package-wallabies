@@ -17,3 +17,11 @@ A list with player_hands, dealer_hand (1 card), and remaining deck
 \description{
 Deals 2 cards to each player and 1 card to the dealer. Dealer's 2nd card comes later.
 }
+\examples{
+# Example: Deal to 2 players from a fresh deck
+deck <- create_board(1)
+result <- deal_cards(num_players = 2, deck)
+result$player_hands  # list of two hands
+result$dealer_hand   # single card
+length(result$deck)  # 52 - 2*2 - 1 = 47
+}

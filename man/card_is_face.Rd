@@ -2,16 +2,21 @@
 % Please edit documentation in R/card_vector.R
 \name{card_is_face}
 \alias{card_is_face}
-\title{Check if a card is a face card (J, Q, K)}
+\title{Check if a Card is a Face Card (J, Q, K)}
 \usage{
 card_is_face(x)
 }
 \arguments{
-\item{x}{A card_vector}
+\item{x}{A \code{card_vector} object.}
 }
 \value{
-Logical vector
+A logical vector indicating whether each card is a face card (TRUE) or not (FALSE).
 }
 \description{
-Check if a card is a face card (J, Q, K)
+Identifies whether each card in the \code{card_vector} is a face card (Jack, Queen, or King).
+}
+\examples{
+# Check for face cards in a deck
+deck <- card_vector(c("A♠", "10♣", "K♥", "Q♠"))
+card_is_face(deck)
 }

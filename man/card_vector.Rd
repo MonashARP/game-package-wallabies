@@ -7,11 +7,17 @@
 card_vector(x = character())
 }
 \arguments{
-\item{x}{A character vector of cards like "A♠", "10♣", "K♥"}
+\item{x}{A character vector of cards, e.g., "A♠", "10♣", "K♥"}
 }
 \value{
-A card_vector object
+A \code{card_vector} object with class \code{"card_vector"}, inheriting from \code{"vctrs_vctr"}
 }
 \description{
-Create a custom vctrs card vector.
+Creates a custom vctrs card vector representing a deck of cards.
+Each card is represented as a string like "A♠", "10♣", "K♥", etc.
+}
+\examples{
+# Create a card vector with a few cards
+deck <- card_vector(c("A♠", "10♣", "K♥"))
+deck
 }

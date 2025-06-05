@@ -2,16 +2,21 @@
 % Please edit documentation in R/card_vector.R
 \name{card_rank}
 \alias{card_rank}
-\title{Get card ranks}
+\title{Get Card Ranks}
 \usage{
 card_rank(x)
 }
 \arguments{
-\item{x}{A card_vector}
+\item{x}{A \code{card_vector} object.}
 }
 \value{
-Character vector of ranks (e.g., "A", "10", "Q")
+A character vector containing the ranks of the cards (e.g., "A", "10", "Q").
 }
 \description{
-Get card ranks
+Extracts the rank (number or face value) of each card in the \code{card_vector}.
+}
+\examples{
+# Extract card ranks from a deck
+deck <- card_vector(c("A♠", "10♣", "K♥"))
+card_rank(deck)
 }

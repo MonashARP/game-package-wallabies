@@ -4,7 +4,7 @@
 \alias{insurance_bet}
 \title{Offer and Resolve Insurance Bet}
 \usage{
-insurance_bet(dealer_hand, player_accepts)
+insurance_bet(dealer_hand, player_accepts, rule = "standard")
 }
 \arguments{
 \item{dealer_hand}{A character vector of two cards (e.g., c("A♠", "10♦"))}

@@ -6,43 +6,63 @@
 #' @param x A character vector of cards, e.g., "A♠", "10♣", "K♥"
 #' @return A `card_vector` object with class `"card_vector"`, inheriting from `"vctrs_vctr"`
 #' @export
+#' @examples
+#' # Create a card vector with a few cards
+#' deck <- card_vector(c("A♠", "10♣", "K♥"))
+#' deck
 card_vector <- function(x = character()) {
   vctrs::vec_assert(x, character())  # Ensure that input is a character vector
   structure(x, class = c("card_vector", "vctrs_vctr"))  # Create the custom card vector
 }
 
-#' @export
-#' @rdname card_vector
-#' Format method for the `card_vector` class
+#' Format Method for the `card_vector` Class
 #'
 #' Customizes the print output for `card_vector` objects by enclosing each card in brackets.
 #'
 #' @param x A `card_vector` object.
 #' @param ... Additional arguments passed to `format()`.
 #' @return A formatted character string representing the card vector.
+#' @export
+#' @examples
+#' # Format the card vector
+#' deck <- card_vector(c("A♠", "10♣", "K♥"))
+#' format(deck)
 format.card_vector <- function(x, ...) {
   paste0("[", x, "]")  # Wrap each card in square brackets
 }
 
-#' @export
-#' @rdname card_vector
-#' Type coercion method for `card_vector` to ensure compatibility with other `card_vector` objects
+#' Type Coercion Method for `card_vector`
+#'
+#' Type coercion method for `card_vector` to ensure compatibility with other `card_vector` objects.
 #'
 #' @param x, y Objects to compare for type compatibility.
 #' @param ... Additional arguments for method dispatch.
 #' @return A `card_vector` object.
+#' @export
+#' @examples
+#' # Type coercion method in action
+#' deck1 <- card_vector(c("A♠", "10♣"))
+#' deck2 <- card_vector(c("K♥", "Q♠"))
+#' vec_ptype2(deck1, deck2)
 vec_ptype2.card_vector.card_vector <- function(x, y, ...) {
   card_vector()  # Return a `card_vector` type when comparing two card_vectors
 }
 
-#' @export
-#' @rdname card_vector
+#' Coercion Method for `card_vector`
+#'
 #' Coercion method for casting one `card_vector` to another.
 #'
 #' @param x A `card_vector` object.
 #' @param to The target class to cast to.
 #' @param ... Additional arguments for method dispatch.
 #' @return The original `card_vector` object, as no conversion is needed.
+#' @import vctrs
+#' @export
+#' @examples
+#' # Coerce between two card_vectors
+#' deck1 <- card_vector(c("A♠", "10♣"))
+#' deck2 <- vec_cast(deck1, to = "card_vector")
+#' deck2
 vec_cast.card_vector.card_vector <- function(x, to, ...) {
   x  # Return the original object as no casting is required between the same class
 }
@@ -54,6 +74,10 @@ vec_cast.card_vector.card_vector <- function(x, to, ...) {
 #' @param x A `card_vector` object.
 #' @return A character vector containing the ranks of the cards (e.g., "A", "10", "Q").
 #' @export
+#' @examples
+#' # Extract card ranks from a deck
+#' deck <- card_vector(c("A♠", "10♣", "K♥"))
+#' card_rank(deck)
 card_rank <- function(x) {
   stopifnot(inherits(x, "card_vector"))  # Ensure input is a valid card_vector
   ranks <- vctrs::vec_data(x)  # Extract the underlying character data
@@ -67,6 +91,10 @@ card_rank <- function(x) {
 #' @param x A `card_vector` object.
 #' @return A character vector containing the suits of the cards (e.g., "♠", "♥").
 #' @export
+#' @examples
+#' # Extract card suits from a deck
+#' deck <- card_vector(c("A♠", "10♣", "K♥"))
+#' card_suit(deck)
 card_suit <- function(x) {
   stopifnot(inherits(x, "card_vector"))  # Ensure input is a valid card_vector
   ranks <- vctrs::vec_data(x)  # Extract the underlying character data
@@ -80,27 +108,11 @@ card_suit <- function(x) {
 #' @param x A `card_vector` object.
 #' @return A logical vector indicating whether each card is a face card (TRUE) or not (FALSE).
 #' @export
+#' @examples
+#' # Check for face cards in a deck
+#' deck <- card_vector(c("A♠", "10♣", "K♥", "Q♠"))
+#' card_is_face(deck)
 card_is_face <- function(x) {
   rank <- card_rank(x)  # Extract card ranks
   rank %in% c("J", "Q", "K")  # Return TRUE if the rank is J, Q, or K
 }
-
-
-# Define math operations on card_vector objects (addition, subtraction, etc.)
-#' @export
-vec_arith.card_vector <- function(op, x, y, ...) {
-  # Check if 'y' is a numeric value or another card_vector
-  if (inherits(y, "card_vector")) {
-    x_vals <- card_rank(x)
-    y_vals <- card_rank(y)
-    return(vec_arith_base(op, x_vals, y_vals, ...))
-  } else {
-    return(vec_arith_base(op, x, y, ...))
-  }
-}
-
-
-
-
-
-

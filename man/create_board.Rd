@@ -16,6 +16,12 @@ A shuffled deck of cards.
 Create a Shuffled Deck of Cards
 }
 \examples{
+# Create a single shuffled deck
+deck1 <- create_board(1)
+head(deck1)
 
-create_board()
+# Create and view number of cards in 6 decks
+deck6 <- create_board(6)
+length(deck6)  # Should be 312
+
 }

@@ -2,16 +2,21 @@
 % Please edit documentation in R/card_vector.R
 \name{card_suit}
 \alias{card_suit}
-\title{Get card suits}
+\title{Get Card Suits}
 \usage{
 card_suit(x)
 }
 \arguments{
-\item{x}{A card_vector}
+\item{x}{A \code{card_vector} object.}
 }
 \value{
-Character vector of suits (e.g., "♠", "♥")
+A character vector containing the suits of the cards (e.g., "♠", "♥").
 }
 \description{
-Get card suits
+Extracts the suit (♠, ♥, ♦, ♣) of each card in the \code{card_vector}.
+}
+\examples{
+# Extract card suits from a deck
+deck <- card_vector(c("A♠", "10♣", "K♥"))
+card_suit(deck)
 }
