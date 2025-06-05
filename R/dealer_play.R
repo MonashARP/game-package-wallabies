@@ -4,7 +4,6 @@
 #'
 #' @param dealer_hand Character vector of the dealer's current hand
 #' @param deck Character vector of the remaining deck
-#' @param rule Character vector of the chosen rule for Ace scoring
 #'
 #' @return A list with updated dealer_hand and deck
 #' @examples
@@ -22,14 +21,14 @@
 #'
 #' @export
 
-dealer_play <- function(dealer_hand, deck, rule = "standard") {
+dealer_play <- function(dealer_hand, deck) {
   get_ace_count <- function(hand) {
     ranks <- sapply(hand, function(card) strsplit(card, "[♠♦♥♣]")[[1]][1])
     sum(ranks == "A")
   }
 
   while (length(dealer_hand) < 5) {
-    score <- score_hand_dynamic(dealer_hand, rule)  # Use score_hand_dynamic instead of score_hand
+    score <- score_hand(dealer_hand)
     aces <- get_ace_count(dealer_hand)
 
     # Soft 17 check: has Ace and score == 17 before adjusting Ace

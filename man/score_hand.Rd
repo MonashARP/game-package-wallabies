@@ -7,21 +7,16 @@
 score_hand(hand)
 }
 \arguments{
-\item{hand}{A vector of cards.}
+\item{hand}{A character vector of cards.}
 }
 \value{
-The score of the hand.
+An integer representing the total score.
 }
 \description{
-Score the Cards in a Hand
+Calculates the total score for a Blackjack hand. Aces count as 11 unless it causes a bust.
 }
 \examples{
-# Score a hand with Ace and 9
-score_hand(c("A♠", "9♣"))
-
-# Score a hand with multiple Aces
-score_hand(c("A♠", "A♦", "9♠"))
-
-# Score a hand with multiple Aces and a 10, resulting in a bust
-score_hand(c("A♠", "A♦", "A♣", "10♠"))
+score_hand(c("A♠", "10♣"))  # 21
+score_hand(c("A♠", "A♦", "9♠"))  # 21
+score_hand(c("A♠", "A♦", "A♣", "10♠"))  # 13
 }

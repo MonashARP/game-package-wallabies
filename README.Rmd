@@ -34,13 +34,13 @@ devtools::install_github("MonashARP/game-package-wallabies")
 
 ✅ Official Blackjack rules:
 
-Surrender
+- Surrender
 
-Double Down
+- Double Down
 
-Insurance
+- Insurance
 
-Split Hands
+- Split Hands
 
 🎯 Accurate hand scoring
 
@@ -50,6 +50,7 @@ Split Hands
 
 ## 🚀 Getting Started
 Here’s a quick example of how to start a Blackjack game interactively:
+
 ```{r}
 library(Blackjack)
 

@@ -2,7 +2,7 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-int cpp_score_hand(Rcpp::CharacterVector hand) {
+int cpp_score_hand(CharacterVector hand) {
   std::map<std::string, int> values = {
     {"A", 11}, {"2", 2}, {"3", 3}, {"4", 4}, {"5", 5},
     {"6", 6}, {"7", 7}, {"8", 8}, {"9", 9},
@@ -13,11 +13,11 @@ int cpp_score_hand(Rcpp::CharacterVector hand) {
   int aces = 0;
 
   for (int i = 0; i < hand.size(); ++i) {
-    std::string card = Rcpp::as<std::string>(hand[i]);
+    std::string card = as<std::string>(hand[i]);
     std::string rank = card.substr(0, card.find_first_of("♠♥♦♣"));
 
     if (values.find(rank) == values.end()) {
-      Rcpp::stop("Invalid card rank: " + rank);
+      stop("Invalid card rank: " + rank);
     }
 
     score += values[rank];

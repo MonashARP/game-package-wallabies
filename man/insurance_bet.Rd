@@ -4,14 +4,12 @@
 \alias{insurance_bet}
 \title{Offer and Resolve Insurance Bet}
 \usage{
-insurance_bet(dealer_hand, player_accepts, rule = "standard")
+insurance_bet(dealer_hand, player_accepts)
 }
 \arguments{
 \item{dealer_hand}{A character vector of two cards (e.g., c("A♠", "10♦"))}
 
 \item{player_accepts}{Logical, TRUE if player accepts insurance}
-
-\item{rule}{Character vector of the chosen rule for Ace scoring}
 }
 \value{
 A list with insurance_available, insurance_paid, payout, blackjack

@@ -8,26 +8,80 @@ functionalities for card dealing, scoring, splitting hands, doubling
 down, insurance betting, and more. It allows players to interactively
 play a round of Blackjack with multiple players.
 
-## Installation
+## 🛠 Installation
 
 You can install the package from
 [GitHub](https://github.com/MonashARP/game-package-wallabies.git) by
-either:
-
-1.  Cloning the repository to your local machine:
+using `devtools`:
 
 ``` r
-git clone git@github.com:MonashARP/game-package-wallabies.git
-```
-
-2.  Or downloading the ZIP file from GitHub and extracting it to a local
-    folder. Then run:
-
-``` r
-# Install devtools if you haven't already
+# Install devtools if not already installed
 install.packages("devtools")
 
-library(devtools)
-
-devtools::install()
+# Install Blackjack from GitHub
+devtools::install_github("MonashARP/game-package-wallabies")
 ```
+
+## ✨ Features
+
+🎮 Interactive multi-player gameplay
+
+🃏 Configurable number of decks
+
+✅ Official Blackjack rules:
+
+- Surrender
+
+- Double Down
+
+- Insurance
+
+- Split Hands
+
+🎯 Accurate hand scoring
+
+🤵 Dealer follows house logic
+
+🏁 End-of-round results and outcome summary
+
+## 🚀 Getting Started
+
+Here’s a quick example of how to start a Blackjack game interactively:
+
+``` r
+library(Blackjack)
+
+# Start a full round of Blackjack
+play_blackjack()
+```
+
+During the game, you’ll be prompted to enter:
+
+- Number of players
+
+- Number of decks
+
+- Whether to hit, stand, surrender, double down, or split (depending on
+  your hand)
+
+#### 📦 Package Structure
+
+| Function            | Purpose                                         |
+|---------------------|-------------------------------------------------|
+| `create_board()`    | Generates a shuffled deck of cards              |
+| `deal_cards()`      | Deals cards to players and dealer               |
+| `score_hand()`      | Calculates the score of a hand                  |
+| `player_split()`    | Splits a hand if the two cards match            |
+| `double_down()`     | Performs a double-down action                   |
+| `surrender_hand()`  | Executes a surrender decision                   |
+| `dealer_play()`     | Implements the dealer’s turn logic              |
+| `insurance_bet()`   | Handles insurance option if dealer shows an Ace |
+| `announce_winner()` | Compares scores and determines outcomes         |
+| `play_blackjack()`  | Runs the full interactive game                  |
+
+## 🎮 Play Now
+
+Explore the gameplay, test your strategy, and try your luck — enjoy
+Blackjack in R!
+
+Good luck, and may the odds be in your favor! 🍀🃏

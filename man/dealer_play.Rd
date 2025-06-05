@@ -4,14 +4,12 @@
 \alias{dealer_play}
 \title{Dealer's play logic according to Blackjack rules}
 \usage{
-dealer_play(dealer_hand, deck, rule = "standard")
+dealer_play(dealer_hand, deck)
 }
 \arguments{
 \item{dealer_hand}{Character vector of the dealer's current hand}
 
 \item{deck}{Character vector of the remaining deck}
-
-\item{rule}{Character vector of the chosen rule for Ace scoring}
 }
 \value{
 A list with updated dealer_hand and deck

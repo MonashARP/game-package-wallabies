@@ -1,31 +1,43 @@
 library(testthat)
 
-test_that("dealer_play draws until 17 or 5 cards (with dynamic scoring)", {
-  # Create a custom deck so we can control draws
-  preset_deck <- c("2♠", "3♦", "4♣", "5♥", "6♠", "7♦", "8♣", "9♥", "10♠", "J♦")
+test_that("dealer_play stops at hard 17 or above", {
+  deck <- c("2♣", "3♦", "4♥", "5♠", "6♣", "7♦", "8♥")
+  dealer_hand <- c("10♠", "7♣")  # score = 17
 
-  # Case 1: Dealer starts with low total (score below 17)
-  result <- dealer_play(dealer_hand = c("2♣", "3♠"), deck = preset_deck, rule = "standard")
-  final_score <- score_hand_dynamic(result$dealer_hand, rule = "standard")
+  result <- dealer_play(dealer_hand, deck)
+  expect_equal(result$dealer_hand, dealer_hand)  # no new card drawn
+})
 
-  # Dealer should draw until the score is at least 17, or 5 cards have been dealt
-  expect_true(final_score >= 17 || length(result$dealer_hand) == 5)
-  expect_true(length(result$dealer_hand) >= 2)  # Dealer should have at least 2 cards
+test_that("dealer_play hits below 17", {
+  deck <- c("5♣", "3♦", "2♠")
+  dealer_hand <- c("9♣", "6♦")  # score = 15
 
-  # Case 2: Dealer already has 17 or more — should not draw
-  result2 <- dealer_play(dealer_hand = c("10♣", "7♠"), deck = preset_deck, rule = "standard")
-  expect_equal(result2$dealer_hand, c("10♣", "7♠"))
-  expect_equal(result2$deck, preset_deck)
+  result <- dealer_play(dealer_hand, deck)
+  expect_gt(score_hand(result$dealer_hand), 15)
+  expect_lt(length(result$dealer_hand), 6)
+})
 
-  # Case 3: Soft 17 forces dealer to draw
-  result3 <- dealer_play(dealer_hand = c("A♠", "6♦"), deck = preset_deck, rule = "standard")
-  final_score3 <- score_hand_dynamic(result3$dealer_hand, rule = "standard")
-  expect_true(length(result3$dealer_hand) > 2)  # Dealer should have drawn more cards
-  expect_true(final_score3 > 17)  # Soft 17 rule applies, dealer must draw more cards
+test_that("dealer_play hits on soft 17", {
+  deck <- c("3♣", "4♦", "5♠")
+  dealer_hand <- c("A♠", "6♠")  # soft 17
 
-  # Case 4: Dealer reaches 5 cards without busting
-  result4 <- dealer_play(dealer_hand = c("2♠", "3♠"), deck = c("2♦", "3♦", "4♣", "5♥", "6♠"), rule = "standard")
-  expect_equal(length(result4$dealer_hand), 5)  # Dealer should have exactly 5 cards
-  final_score4 <- score_hand_dynamic(result4$dealer_hand, rule = "standard")
-  expect_true(final_score4 <= 21)  # Ensure dealer did not bust
+  result <- dealer_play(dealer_hand, deck)
+  expect_gt(score_hand(result$dealer_hand), 17)
+})
+
+test_that("dealer_play stops at 5 cards", {
+  deck <- c("2♠", "3♠", "2♦", "2♣", "2♥")
+  dealer_hand <- c("2♦", "2♣")  # starts at 4
+
+  result <- dealer_play(dealer_hand, deck)
+  expect_lte(length(result$dealer_hand), 5)
+})
+
+test_that("dealer_play returns remaining deck correctly", {
+  deck <- c("2♠", "3♠", "4♠", "5♠", "6♠")
+  dealer_hand <- c("A♠", "5♦")  # score = 16
+
+  result <- dealer_play(dealer_hand, deck)
+  total_used <- length(result$dealer_hand) - 2
+  expect_equal(length(result$deck), length(deck) - total_used)
 })

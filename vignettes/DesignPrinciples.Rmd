@@ -8,7 +8,7 @@ vignette: >
 ---
 
 ## Introduction
-The `Blackjack` package was designed to be a clean, extensible, and robust simulation of the game of Blackjack for R users. This vignette documents key architectural and design decisions, including function structure, argument choices, workflow, modularity, and use of R's object-oriented features.
+The **Blackjack** package was designed to be a clean, extensible, and robust simulation of the game of Blackjack for R users. This vignette documents key architectural and design decisions, including function structure, argument choices, workflow, modularity, and use of R's object-oriented features.
 
 ## Internal Modular Functions
 
@@ -16,26 +16,26 @@ The `Blackjack` package was designed to be a clean, extensible, and robust simul
 The function names are chosen to be descriptive and follow common naming conventions, making them easy to understand for users with different levels of experience in programming. Each function name reflects the operation it performs in a straightforward manner.
 
 The arguments for the functions are designed to be intuitive, minimizing the need for extensive documentation. The names of the arguments are chosen to be as self-explanatory as possible:
-- num_players and num_decks in play_blackjack() are used to define the number of players and decks, respectively. These arguments are crucial for customizing the game based on the user's preferences.
+- num_players and num_decks in `play_blackjack()` are used to define the number of players and decks, respectively. These arguments are crucial for customizing the game based on the user's preferences.
 
-- dealer_hand and player_hands in dealer_play() and deal_cards() represent the hands of the dealer and the players, ensuring clarity when referencing the cards being dealt.
+- dealer_hand and player_hands in `dealer_play()` and `deal_cards()` represent the hands of the dealer and the players, ensuring clarity when referencing the cards being dealt.
 
-- rule in score_hand_dynamic() allows users to customize the scoring rules, making it flexible and accommodating to various variations of Blackjack.
+- rule in `score_hand_dynamic()` allows users to customize the scoring rules, making it flexible and accommodating to various variations of Blackjack.
 
-- player_accepts in insurance_bet() makes it clear whether the player has accepted the insurance bet, reflecting the player's choice.
+- player_accepts in `insurance_bet()` makes it clear whether the player has accepted the insurance bet, reflecting the player's choice.
 
 
 ### Usage of metaprogramming and C++
 
 #### Meta-programming for Flexibility
-The package leverages meta-programming to provide flexible rule customization and dynamic evaluation of game logic. The score_hand_dynamic() function, for example, allows users to choose between different scoring rules (e.g., treating Aces as 1 or 11). This dynamic evaluation adapts the game without modifying core code, enabling users to easily experiment with custom rules.
+The package leverages meta-programming to provide flexible rule customization and dynamic evaluation of game logic. The `score_hand_dynamic()` function, for example, allows users to choose between different scoring rules (e.g., treating Aces as 1 or 11). This dynamic evaluation adapts the game without modifying core code, enabling users to easily experiment with custom rules.
 
-**Non-standard evaluation (NSE)** is used to capture and evaluate user input dynamically (e.g., “Hit” or “Stand”), allowing for flexible game flow and extending the package’s functionality. Modular functions, such as player_split() and dealer_play(), ensure that each game aspect is independent and easy to extend, making the codebase adaptable to new rules or features.
+**Non-standard evaluation (NSE)** is used to capture and evaluate user input dynamically (e.g., “Hit” or “Stand”), allowing for flexible game flow and extending the package’s functionality. Modular functions, such as `player_split()` and `dealer_play()`, ensure that each game aspect is independent and easy to extend, making the codebase adaptable to new rules or features.
 
 #### C++ Integration for Performance Enhancement
 The Blackjack package leverages C++ through the Rcpp package to optimize the performance of specific computationally-intensive functions. R, while being highly versatile, can sometimes fall short in performance when it comes to repetitive calculations or operations that require significant computational resources. This is particularly evident in the context of card games like Blackjack, where calculating scores for each hand repeatedly can become a bottleneck as the game progresses, especially in scenarios involving multiple players or large decks.
 
-To address this limitation, we incorporated C++ into the package, specifically to handle the scoring of hands in a more efficient manner. The function cpp_score_hand(), implemented in C++, is used for calculating the score of a player's hand based on the values of the cards. By utilizing C++ for these operations, we benefit from the speed and efficiency of compiled code, which offers a significant performance improvement over interpreting the same logic in R.
+To address this limitation, we incorporated C++ into the package, specifically to handle the scoring of hands in a more efficient manner. The function `cpp_score_hand()`, implemented in C++, is used for calculating the score of a player's hand based on the values of the cards. By utilizing C++ for these operations, we benefit from the speed and efficiency of compiled code, which offers a significant performance improvement over interpreting the same logic in R.
 
 ### Generic functions
 - **Single-purpose functions**: Each exported function has one clear job (dealing, scoring, splitting, insurance, etc.), supporting easier testing and extension.
@@ -55,49 +55,49 @@ Each function is modular, with a clear and specific responsibility. This structu
 
 **Card Vector Functions** (like card_vector, card_rank, card_suit, card_is_face) handle the representation of cards and provide methods to extract or check information about them.
 
-- card_vector(): Creates a custom vector class (card_vector) for representing a deck of cards as strings, such as "A♠", "10♣", "K♥".
+- `card_vector()`: Creates a custom vector class (card_vector) for representing a deck of cards as strings, such as "A♠", "10♣", "K♥".
 Usage: Takes a character vector and returns a card_vector object.
 
-- card_rank(): Extracts the rank (number or face value) from each card in the card_vector (e.g., "A", "10", "Q").
+- `card_rank()`: Extracts the rank (number or face value) from each card in the card_vector (e.g., "A", "10", "Q").
 Usage: Returns a character vector with ranks extracted from the card_vector.
 
-- card_suit(): Extracts the suit (e.g., "♠", "♣", "♥") from each card in the card_vector.
+- `card_suit()`: Extracts the suit (e.g., "♠", "♣", "♥") from each card in the card_vector.
 Usage: Returns a character vector with suits extracted from the card_vector.
 
-- card_is_face(): Checks if each card in the card_vector is a face card (Jack, Queen, or King).
+- `card_is_face()`: Checks if each card in the card_vector is a face card (Jack, Queen, or King).
 Usage: Returns a logical vector indicating whether the card is a face card (TRUE for face cards, FALSE for others).
 
 
 #### Game Flow Functions
 These functions manage the overall game flow, starting the game, dealing cards, and managing the player's and dealer's turns.
 
-- create_board(): Generates a shuffled deck of cards with a specified number of decks and returns a shuffled deck as a character vector of card strings (e.g., "A♠", "10♣", "K♥").
+- `create_board()`: Generates a shuffled deck of cards with a specified number of decks and returns a shuffled deck as a character vector of card strings (e.g., "A♠", "10♣", "K♥").
 
-- deal_cards(): Deals 2 cards to each player and 1 card to the dealer from a shuffled deck and returns a list containing player_hands, dealer_hand, and the remaining deck.
+- `deal_cards()`: Deals 2 cards to each player and 1 card to the dealer from a shuffled deck and returns a list containing player_hands, dealer_hand, and the remaining deck.
 
-- dealer_play(): Simulates the dealer's turn, drawing cards until the dealer’s hand reaches 17 or the dealer gets 5 cards without busting, and returns the updated dealer's hand and the remaining deck.
+- `dealer_play()`: Simulates the dealer's turn, drawing cards until the dealer’s hand reaches 17 or the dealer gets 5 cards without busting, and returns the updated dealer's hand and the remaining deck.
 
-- player_split(): Allows the player to split a pair of cards into two separate hands and returns whether the player can split the cards and the resulting split hands.
+- `player_split()`: Allows the player to split a pair of cards into two separate hands and returns whether the player can split the cards and the resulting split hands.
 
-- play_blackjack(): Starts an interactive game of Blackjack, prompting users for the number of players, decks, and actions like hit, stand, surrender, and double down, and runs the game loop managing player actions and dealer behavior.
+- `play_blackjack()`: Starts an interactive game of Blackjack, prompting users for the number of players, decks, and actions like hit, stand, surrender, and double down, and runs the game loop managing player actions and dealer behavior.
 
 #### Betting Functions
 These functions manage the player's betting actions, such as doubling down, taking insurance, or surrendering.
 
-- insurance_bet(): Offers the player the option to take insurance if the dealer’s upcard is Ace. If accepted, it checks if the dealer has Blackjack and calculates the payout, returning the result of the insurance bet, including the payout and whether the insurance was successful.
+- `insurance_bet()`: Offers the player the option to take insurance if the dealer’s upcard is Ace. If accepted, it checks if the dealer has Blackjack and calculates the payout, returning the result of the insurance bet, including the payout and whether the insurance was successful.
 
-- double_down(): Allows a player to double their bet by taking exactly one more card and returns the updated hand, the new deck, and a validity flag (TRUE if double down is valid).
+- `double_down()`: Allows a player to double their bet by taking exactly one more card and returns the updated hand, the new deck, and a validity flag (TRUE if double down is valid).
 
-- surrender_hand(): Allows a player to surrender and forfeit half their bet and returns a status (whether the player has surrendered or not) and the associated message regarding the surrender.
+- `surrender_hand()`: Allows a player to surrender and forfeit half their bet and returns a status (whether the player has surrendered or not) and the associated message regarding the surrender.
 
 #### Scoring Functions
 These functions calculate the score of the player’s hand and manage the game's rules for scoring.
 
-- score_hand_dynamic(): Calculates the score of a hand based on dynamic rules (standard or custom), returning the score of the hand, adjusting for Aces based on the rule passed (e.g., Ace as 1 or 11).
+- `score_hand_dynamic()`: Calculates the score of a hand based on dynamic rules (standard or custom), returning the score of the hand, adjusting for Aces based on the rule passed (e.g., Ace as 1 or 11).
 
-- score_hand(): Calculates the score of a hand, adjusting for Aces (if score > 21, Ace is treated as 1) and returns the score of the hand, considering the Ace as 1 if necessary.
+- `score_hand()`: Calculates the score of a hand, adjusting for Aces (if score > 21, Ace is treated as 1) and returns the score of the hand, considering the Ace as 1 if necessary.
 
-- announce_winner(): Compares the player scores with the dealer's score and announces the outcome (Win, Lose, or Tie), returning a vector of outcomes for each player.
+- `announce_winner()`: Compares the player scores with the dealer's score and announces the outcome (Win, Lose, or Tie), returning a vector of outcomes for each player.
 
 
 
@@ -112,7 +112,7 @@ The workflow is as follows:
 
 - Initial Setup:The user is prompted to enter the number of players and decks. The function validates the number of players and ensures a valid number of decks are selected, defaulting based on the number of players if needed.
 
-- Deck Creation and Card Dealing: A shuffled deck is created using the create_board() function, and the deal_cards() function distributes 2 cards to each player and 1 card to the dealer. The dealer's first card is revealed, and the remaining cards are made available for players' actions.
+- Deck Creation and Card Dealing: A shuffled deck is created using the `create_board()` function, and the `deal_cards()` function distributes 2 cards to each player and 1 card to the dealer. The dealer's first card is revealed, and the remaining cards are made available for players' actions.
 
 - Insurance Option: If the dealer's upcard is an Ace, players are offered the option to take insurance. The outcome of the insurance bet is evaluated, including the check for a Blackjack on the dealer's part, and the results are recorded.
 
@@ -156,10 +156,10 @@ Modular Betting Strategies: Complex betting strategies (e.g., Martingale) were d
 The development of this package has been a collaborative effort involving both human expertise and AI assistance.
 
 ### Humane contributions
-The development of this package was primarily driven by human expertise in crafting the core game logic and functionality. The developer designed and implemented the essential game functions, including play_blackjack(), dealer_play(), double_down(), and others that manage gameplay mechanics such as card dealing, player actions, and the determination of game outcomes. The developer also made critical design decisions, such as using a function-based approach over object-oriented programming, which allowed for clearer modularization and flexibility. Additionally, the human contributions encompassed writing and refining the package's documentation, ensuring clear explanations of the functions, their purposes, and usage examples. The testing was also handled by the developer, who focused on edge cases and ensuring the integrity of the game logic.
+The development of this package was primarily driven by human expertise in crafting the core game logic and functionality. The developer designed and implemented the essential game functions, including `play_blackjack()`, `dealer_play()`, `double_down()`, and others that manage gameplay mechanics such as card dealing, player actions, and the determination of game outcomes. The developer also made critical design decisions, such as using a function-based approach over object-oriented programming, which allowed for clearer modularization and flexibility. Additionally, the human contributions encompassed writing and refining the package's documentation, ensuring clear explanations of the functions, their purposes, and usage examples. The testing was also handled by the developer, who focused on edge cases and ensuring the integrity of the game logic.
 
 ### AI contributions
-AI contributed significantly to the debugging and optimization phases of this project. It assisted in identifying and resolving errors encountered during test execution, particularly when running devtools::check() and resolving issues with the package loading process. Additionally, AI played a key role in optimizing the efficiency of functions, particularly when dealing with large datasets or complex operations such as scoring hands in the Blackjack game. By suggesting more efficient code structures and practices, it helped streamline the game’s logic and reduce redundant operations. Moreover, AI provided valuable guidance on integrating C++ functions, particularly in optimizing the score_hand_dynamic function. It assisted in resolving issues with the C++ code compilation and helped re-factor the function to handle card rank extraction and score calculation more efficiently, improving performance in scenarios involving large hands or multiple players. Through these contributions, AI helped enhance the functionality, performance, and overall robustness of the package.
+AI contributed significantly to the debugging and optimization phases of this project. It assisted in identifying and resolving errors encountered during test execution, particularly when running `devtools::check()` and resolving issues with the package loading process. Additionally, AI played a key role in optimizing the efficiency of functions, particularly when dealing with large datasets or complex operations such as scoring hands in the Blackjack game. By suggesting more efficient code structures and practices, it helped streamline the game’s logic and reduce redundant operations. Moreover, AI provided valuable guidance on integrating C++ functions, particularly in optimizing the score_hand_dynamic function. It assisted in resolving issues with the C++ code compilation and helped re-factor the function to handle card rank extraction and score calculation more efficiently, improving performance in scenarios involving large hands or multiple players. Through these contributions, AI helped enhance the functionality, performance, and overall robustness of the package.
 
 Christy: https://chatgpt.com/share/68416bd1-d9d4-8004-a789-99d59d1aa70a
 Sarah: https://chatgpt.com/share/68417063-9450-8004-8166-93f23327fa4a

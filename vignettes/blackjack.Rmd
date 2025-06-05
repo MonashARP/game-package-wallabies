@@ -36,7 +36,6 @@ To start using the Blackjack package, you need to install it. If you haven't don
 Once installed, you can load the package using:
 ```{r}
 library(Blackjack)
-library(vctrs)
 ```
 
 #  Blackjack Rules
@@ -77,10 +76,13 @@ This function allows you to play a full interactive game of Blackjack. This func
 3. **Dealer’s Play**: Handles the dealer's turn according to Blackjack rules.
 4. **Outcome**: Announces the winner for each player based on the final hand values.
 
-## Example
+## Example Gameplay
+To play a full interactive round of Blackjack, run:
 ```{r eval=FALSE}
 play_blackjack()
 ```
+
+Here’s what a typical interactive session might look like when running `play_blackjack()`:
 
 🎮 Welcome to Blackjack!
 
@@ -138,6 +140,8 @@ play_blackjack()
 
 <sup>Created on 2025-06-05 with [reprex v2.1.1](https://reprex.tidyverse.org)</sup>
 
+This example illustrates how multiple players can take actions (hit, stand, surrender), and how the dealer automatically plays their hand. Results are calculated based on Blackjack rules and shown at the end of the round.
+
 # 🧩 Using Helper Functions
 You can also manually test or explore game logic using core functions:
 
@@ -179,13 +183,6 @@ dd_result$new_hand
 ```{r}
 dealer_play(c("7♠", "9♦"), create_board())
 ```
-
-**Use C++ Hand Scoring**
-```{r}
-score_hand_dynamic(c("A♠", "K♠"))  # Returns 21
-
-```
-
 
 # Advanced: Custom Card Vector
 We implemented a custom S3 vctrs class called card_vector to give cards richer behavior in R.

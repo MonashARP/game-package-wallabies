@@ -4,7 +4,7 @@
 \alias{play_blackjack}
 \title{Play a Full Game of Blackjack Interactively}
 \usage{
-play_blackjack(rule = "standard")
+play_blackjack()
 }
 \description{
 Asks user for number of players and decks, and plays a full round of Blackjack

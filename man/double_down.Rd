@@ -4,14 +4,12 @@
 \alias{double_down}
 \title{Perform a double down action for a player}
 \usage{
-double_down(hand, deck, rule = "standard")
+double_down(hand, deck)
 }
 \arguments{
 \item{hand}{Character vector of player hand}
 
 \item{deck}{Character vector of remaining deck}
-
-\item{rule}{Character vector of the chosen rule for Ace scoring}
 }
 \value{
 A list with:
