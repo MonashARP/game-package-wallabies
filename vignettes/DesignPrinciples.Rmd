@@ -7,24 +7,44 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-# Introduction
-
+## Introduction
 The `Blackjack` package was designed to be a clean, extensible, and robust simulation of the game of Blackjack for R users. This vignette documents key architectural and design decisions, including function structure, argument choices, workflow, modularity, and use of R's object-oriented features.
 
-# Modular Functions & Workflow
+## Internal Modular Functions
 
+### Function Names and Arguments
+The function names are chosen to be descriptive and follow common naming conventions, making them easy to understand for users with different levels of experience in programming. Each function name reflects the operation it performs in a straightforward manner.
+
+The arguments for the functions are designed to be intuitive, minimizing the need for extensive documentation. The names of the arguments are chosen to be as self-explanatory as possible:
+- num_players and num_decks in play_blackjack() are used to define the number of players and decks, respectively. These arguments are crucial for customizing the game based on the user's preferences.
+
+- dealer_hand and player_hands in dealer_play() and deal_cards() represent the hands of the dealer and the players, ensuring clarity when referencing the cards being dealt.
+
+- rule in score_hand_dynamic() allows users to customize the scoring rules, making it flexible and accommodating to various variations of Blackjack.
+
+- player_accepts in insurance_bet() makes it clear whether the player has accepted the insurance bet, reflecting the player's choice.
+
+
+### Usage of metaprogramming and C++
+
+#### Meta-programming for Flexibility
+The package leverages meta-programming to provide flexible rule customization and dynamic evaluation of game logic. The score_hand_dynamic() function, for example, allows users to choose between different scoring rules (e.g., treating Aces as 1 or 11). This dynamic evaluation adapts the game without modifying core code, enabling users to easily experiment with custom rules.
+
+**Non-standard evaluation (NSE)** is used to capture and evaluate user input dynamically (e.g., “Hit” or “Stand”), allowing for flexible game flow and extending the package’s functionality. Modular functions, such as player_split() and dealer_play(), ensure that each game aspect is independent and easy to extend, making the codebase adaptable to new rules or features.
+
+#### C++ Integration for Performance Enhancement
+The Blackjack package leverages C++ through the Rcpp package to optimize the performance of specific computationally-intensive functions. R, while being highly versatile, can sometimes fall short in performance when it comes to repetitive calculations or operations that require significant computational resources. This is particularly evident in the context of card games like Blackjack, where calculating scores for each hand repeatedly can become a bottleneck as the game progresses, especially in scenarios involving multiple players or large decks.
+
+To address this limitation, we incorporated C++ into the package, specifically to handle the scoring of hands in a more efficient manner. The function cpp_score_hand(), implemented in C++, is used for calculating the score of a player's hand based on the values of the cards. By utilizing C++ for these operations, we benefit from the speed and efficiency of compiled code, which offers a significant performance improvement over interpreting the same logic in R.
+
+### Generic functions
 - **Single-purpose functions**: Each exported function has one clear job (dealing, scoring, splitting, insurance, etc.), supporting easier testing and extension.
 - **Composability**: Outputs are lists or atomic values, so functions can be chained or combined.
 - **Explicit game workflow**: The `play_blackjack()` function orchestrates setup, player turns, dealer play, and scoring, reflecting the real rules of Blackjack.
-- **Stateless helpers**: Most helpers (e.g. `player_split`, `card_is_face`, `score_hand`) are pure functions with no side effects.
 
-# Naming & Arguments
+Each function is modular, with a clear and specific responsibility. This structure allows easy testing, modification, and extension of the package:
 
-- **Descriptive function names**: (e.g., `create_board`, `score_hand_dynamic`, `announce_winner`) reflect standard Blackjack terminology.
-- **Consistent argument naming**: Arguments like `hand`, `deck`, `num_players`, and `rule` are used consistently across functions.
-- **Customizable rules**: Functions like `score_hand_dynamic()` allow for standard or custom scoring via the `rule` argument.
-
-# Object-Oriented Design (S3/vctrs)
+#### Object-Oriented Design (S3/vctrs)
 
 - **Custom vctrs class**: Cards are represented by a custom `card_vector` S3/vctrs class. This enables:
   - Type safety for all card-related operations
@@ -33,26 +53,87 @@ The `Blackjack` package was designed to be a clean, extensible, and robust simul
 - **Supporting methods**: Implemented `format()`, `vec_ptype2()`, and `vec_cast()` methods for compatibility and usability.
 - **Extractors**: Generic-style functions `card_rank()`, `card_suit()`, `card_is_face()` for robust, reusable card information extraction.
 
-# User Workflow & Experience
+**Card Vector Functions** (like card_vector, card_rank, card_suit, card_is_face) handle the representation of cards and provide methods to extract or check information about them.
 
+- card_vector(): Creates a custom vector class (card_vector) for representing a deck of cards as strings, such as "A♠", "10♣", "K♥".
+Usage: Takes a character vector and returns a card_vector object.
+
+- card_rank(): Extracts the rank (number or face value) from each card in the card_vector (e.g., "A", "10", "Q").
+Usage: Returns a character vector with ranks extracted from the card_vector.
+
+- card_suit(): Extracts the suit (e.g., "♠", "♣", "♥") from each card in the card_vector.
+Usage: Returns a character vector with suits extracted from the card_vector.
+
+- card_is_face(): Checks if each card in the card_vector is a face card (Jack, Queen, or King).
+Usage: Returns a logical vector indicating whether the card is a face card (TRUE for face cards, FALSE for others).
+
+
+#### Game Flow Functions
+These functions manage the overall game flow, starting the game, dealing cards, and managing the player's and dealer's turns.
+
+- create_board(): Generates a shuffled deck of cards with a specified number of decks and returns a shuffled deck as a character vector of card strings (e.g., "A♠", "10♣", "K♥").
+
+- deal_cards(): Deals 2 cards to each player and 1 card to the dealer from a shuffled deck and returns a list containing player_hands, dealer_hand, and the remaining deck.
+
+- dealer_play(): Simulates the dealer's turn, drawing cards until the dealer’s hand reaches 17 or the dealer gets 5 cards without busting, and returns the updated dealer's hand and the remaining deck.
+
+- player_split(): Allows the player to split a pair of cards into two separate hands and returns whether the player can split the cards and the resulting split hands.
+
+- play_blackjack(): Starts an interactive game of Blackjack, prompting users for the number of players, decks, and actions like hit, stand, surrender, and double down, and runs the game loop managing player actions and dealer behavior.
+
+#### Betting Functions
+These functions manage the player's betting actions, such as doubling down, taking insurance, or surrendering.
+
+- insurance_bet(): Offers the player the option to take insurance if the dealer’s upcard is Ace. If accepted, it checks if the dealer has Blackjack and calculates the payout, returning the result of the insurance bet, including the payout and whether the insurance was successful.
+
+- double_down(): Allows a player to double their bet by taking exactly one more card and returns the updated hand, the new deck, and a validity flag (TRUE if double down is valid).
+
+- surrender_hand(): Allows a player to surrender and forfeit half their bet and returns a status (whether the player has surrendered or not) and the associated message regarding the surrender.
+
+#### Scoring Functions
+These functions calculate the score of the player’s hand and manage the game's rules for scoring.
+
+- score_hand_dynamic(): Calculates the score of a hand based on dynamic rules (standard or custom), returning the score of the hand, adjusting for Aces based on the rule passed (e.g., Ace as 1 or 11).
+
+- score_hand(): Calculates the score of a hand, adjusting for Aces (if score > 21, Ace is treated as 1) and returns the score of the hand, considering the Ace as 1 if necessary.
+
+- announce_winner(): Compares the player scores with the dealer's score and announces the outcome (Win, Lose, or Tie), returning a vector of outcomes for each player.
+
+
+
+## User Workflow
 - **Interactive and scriptable**: Users can either step through the game interactively (`play_blackjack()`) or call lower-level functions for custom simulations or analyses.
 - **Defensive programming**: All functions check argument types/lengths and handle edge cases (e.g., invalid hands, out-of-bounds splits).
 - **Clear feedback**: Results are printed in a readable, game-like format (e.g., final hands, scores, win/lose messages).
 
-# Use of C++ and Performance
+The game flow is designed to be interactive, with the user making decisions at each stage. The play_blackjack function guides the user through the game, prompting them to decide whether to surrender, split, or double down. The use of the readline() function allows for this interactive user experience. After each action, the game continues, and the player's hand is updated accordingly.
 
-- **Rcpp integration**: The package is ready for performance-critical calculations using C++ via Rcpp (e.g., for hand scoring or simulation loops).
-- **Separation of C++ logic**: C++ functions are wrapped with clear R interfaces for maintainability.
+The workflow is as follows:
 
-# Internal Modularity
+- Initial Setup:The user is prompted to enter the number of players and decks. The function validates the number of players and ensures a valid number of decks are selected, defaulting based on the number of players if needed.
 
-- **Helper functions**: Many internal helpers support extensibility and code reuse (e.g., internal extraction of ranks/suits, Ace handling logic).
-- **S3 result objects**: Round results use an S3 class for structured, printable summaries (`new_round_result`).
+- Deck Creation and Card Dealing: A shuffled deck is created using the create_board() function, and the deal_cards() function distributes 2 cards to each player and 1 card to the dealer. The dealer's first card is revealed, and the remaining cards are made available for players' actions.
 
-# Non-Standard Evaluation (NSE)
+- Insurance Option: If the dealer's upcard is an Ace, players are offered the option to take insurance. The outcome of the insurance bet is evaluated, including the check for a Blackjack on the dealer's part, and the results are recorded.
 
-- **Standard evaluation preferred**: The package avoids NSE for clarity and reproducibility. (If extended in the future, NSE could allow advanced data manipulation in summary/analysis functions.)
+- Player Actions: For each player, the game proceeds with a series of interactive prompts:
 
-# Summary
+- Surrender: Players can opt to surrender, forfeiting half of their bet.
 
-The `Blackjack` package follows best practices for clarity, maintainability, modularity, and extensibility. It leverages modern R paradigms (vctrs, S3, Rcpp-ready), supports robust game workflows, and enables both beginners and advanced users to explore Blackjack gameplay and logic in R.
+- Split: If a player has a pair, they can choose to split it into two separate hands.
+
+- Double Down: Players with hands valued at 10 or 11 can choose to double down by adding a single card to their hand.
+
+- Hit/Stand: Players may continue to hit (receive additional cards) or stand (end their turn). The game ensures that invalid inputs are handled appropriately.
+
+- Dealer's Turn: After all players have finished their turns, the dealer plays according to the Blackjack rules, drawing cards until reaching a score of at least 17 or obtaining 5 cards without busting. The dealer’s hand is revealed and the final score is calculated.
+
+- Result Calculation: Once the dealer completes their turn, the scores of the players are compared against the dealer's score. Each player’s outcome is determined: Win, Lose, or Tie based on their final score relative to the dealer's hand.
+
+- Round Summary and Replay: The results for each player are displayed, and the game provides a summary of the final hands and scores. Players are invited to start a new round or end the session, with the option to adjust the number of decks or players for subsequent rounds.
+
+
+This package is designed with flexibility, extensibility, and ease of use in mind. The modular function design allows for easy modifications and additions, and the intuitive function names make it simple for users to interact with the package. The ability to define custom rules ensures that users can adapt the package to different game variants. With these design choices, the Blackjack package provides a customizable and engaging way to simulate a game of Blackjack in R.
+
+
+
