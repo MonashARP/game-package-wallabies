@@ -57,6 +57,45 @@ Blackjack, also known as 21, is a popular card game played between a dealer and 
 
 4. **Winning**: The player wins if their hand total is closer to 21 than the dealer’s without busting. If both the player and dealer have the same total, it’s a tie (push). If the dealer busts, the player wins.
 
+## Example Gameplay
+```{r}
+# Create and shuffle a 4-deck shoe
+deck <- create_board(num_decks = 4)
+
+# Deal to two players
+deal <- deal_cards(num_players = 2, deck)
+player_hands <- deal$player_hands
+dealer_hand <- deal$dealer_hand
+remaining_deck <- deal$deck
+
+# Score a hand
+score_hand(player_hands[[1]])
+score_hand_dynamic(player_hands[[1]], rule = "standard")
+
+# Dealer logic
+dealer_play(dealer_hand, remaining_deck)
+
+# Player actions
+player_split(player_hands[[1]])
+double_down(player_hands[[1]], remaining_deck)
+insurance_bet(c("A♠", "10♣"), player_accepts = TRUE)
+surrender_hand(player_hands[[1]])
+
+# Announce winner
+player_scores <- sapply(player_hands, score_hand)
+dealer_score <- score_hand(dealer_hand)
+announce_winner(player_scores, dealer_score)
+```
+
+## Custom Card Vectors
+```{r}
+cards <- card_vector(c("A♠", "10♣", "K♥"))
+print(cards)
+card_rank(cards)
+card_suit(cards)
+card_is_face(cards)
+```
+
 
 # Start experimenting and playing the game!
 By using `play_blackjack()`, you will be able to enter the world of Blackjack!
@@ -67,5 +106,12 @@ This function allows you to play a full interactive game of Blackjack. This func
 2. **Gameplay**: Guides each player through their turn, including options to hit, stand, double down, and split.
 3. **Dealer’s Play**: Handles the dealer's turn according to Blackjack rules.
 4. **Outcome**: Announces the winner for each player based on the final hand values.
+
+## Design Principles 
+1. Modular Single purpose functions
+2. Robust vctrs-based card objects for data safety.
+3. Custom rules enabled via arguments.
+4. All results are composable, printable, and testable.
+
 
 
