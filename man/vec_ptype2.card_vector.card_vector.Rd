@@ -7,12 +7,14 @@
 \method{vec_ptype2}{card_vector.card_vector}(x, y, ...)
 }
 \arguments{
-\item{x, }{y Objects to compare for type compatibility.}
+\item{x}{A \code{card_vector} object.}
+
+\item{y}{Another \code{card_vector} object to compare for type compatibility.}
 
 \item{...}{Additional arguments for method dispatch.}
 }
 \value{
-A \code{card_vector} object.
+A \code{card_vector} object, ensuring compatibility between two \code{card_vector} objects.
 }
 \description{
 Type coercion method for \code{card_vector} to ensure compatibility with other \code{card_vector} objects.

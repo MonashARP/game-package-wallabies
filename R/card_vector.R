@@ -39,9 +39,10 @@ format.card_vector <- function(x, ...) {
 #'
 #' Type coercion method for `card_vector` to ensure compatibility with other `card_vector` objects.
 #'
-#' @param x, y Objects to compare for type compatibility.
+#' @param x A `card_vector` object.
+#' @param y Another `card_vector` object to compare for type compatibility.
 #' @param ... Additional arguments for method dispatch.
-#' @return A `card_vector` object.
+#' @return A `card_vector` object, ensuring compatibility between two `card_vector` objects.
 #' @export
 #' @examples
 #' # Type coercion method in action
