@@ -29,3 +29,19 @@ vignette: >
 - Performed final output checks and refined the vignette content.
 
 ## Part 2
+
+### Sarah
+- Refined Vectors, wrote tests and solved errors 
+- Developed metaprogramming with an added dynamic rule for Ace
+- Updated all functions and tests for metaprogramming
+- Developed vignettes
+
+### Aditya
+- Dafted C++
+- Drafted vignettes for Design principles
+
+### Christy
+- Crafted Card Vectors for card_is_face(), card_value(), card_suit()
+- Added missing examples from part 1
+- Developed Readme 
+- Developed C++
