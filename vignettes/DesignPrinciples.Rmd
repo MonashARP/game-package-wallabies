@@ -133,7 +133,36 @@ The workflow is as follows:
 - Round Summary and Replay: The results for each player are displayed, and the game provides a summary of the final hands and scores. Players are invited to start a new round or end the session, with the option to adjust the number of decks or players for subsequent rounds.
 
 
-This package is designed with flexibility, extensibility, and ease of use in mind. The modular function design allows for easy modifications and additions, and the intuitive function names make it simple for users to interact with the package. The ability to define custom rules ensures that users can adapt the package to different game variants. With these design choices, the Blackjack package provides a customizable and engaging way to simulate a game of Blackjack in R.
+## Limitations
+Test Coverage: The current tests focus on core mechanics but lack edge case handling (e.g., invalid inputs). Future work should improve test coverage to handle more complex scenarios.
+
+Gameplay Features: Advanced betting strategies (e.g., card counting, progressive betting) and multi-round tracking are not implemented. These features could be added for a richer experience.
+
+UI/UX: The text-based interface works but isn't ideal for larger groups. A GUI using shiny or ggplot2 would improve user experience.
+
+Multiplayer Functionality: Players are prompted sequentially. Supporting asynchronous input for larger groups could enhance gameplay.
+
+
+## Alternative designs
+Object-Oriented Design (OOP): An OOP approach was considered but not implemented, as it would complicate the code unnecessarily. A function-based design was chosen for simplicity and flexibility.
+
+Interactive GUI: A GUI was considered but not implemented due to time constraints. A text-based interface was used for simplicity, though a GUI could be added in the future.
+
+Real-Time Multiplayer: Real-time multiplayer via WebSockets was considered but not implemented to keep the project simpler. A sequential turn-based model was chosen for ease of use.
+
+Modular Betting Strategies: Complex betting strategies (e.g., Martingale) were deferred to keep the game focused on basic actions. They could be added later for advanced users.
+
+## AI vs. human contributions
+The development of this package has been a collaborative effort involving both human expertise and AI assistance.
+
+### Humane contributions
+The development of this package was primarily driven by human expertise in crafting the core game logic and functionality. The developer designed and implemented the essential game functions, including play_blackjack(), dealer_play(), double_down(), and others that manage gameplay mechanics such as card dealing, player actions, and the determination of game outcomes. The developer also made critical design decisions, such as using a function-based approach over object-oriented programming, which allowed for clearer modularization and flexibility. Additionally, the human contributions encompassed writing and refining the package's documentation, ensuring clear explanations of the functions, their purposes, and usage examples. The testing was also handled by the developer, who focused on edge cases and ensuring the integrity of the game logic.
+
+### AI contributions
+AI contributed significantly to the debugging and optimization phases of this project. It assisted in identifying and resolving errors encountered during test execution, particularly when running devtools::check() and resolving issues with the package loading process. Additionally, AI played a key role in optimizing the efficiency of functions, particularly when dealing with large datasets or complex operations such as scoring hands in the Blackjack game. By suggesting more efficient code structures and practices, it helped streamline the game’s logic and reduce redundant operations. Moreover, AI provided valuable guidance on integrating C++ functions, particularly in optimizing the score_hand_dynamic function. It assisted in resolving issues with the C++ code compilation and helped re-factor the function to handle card rank extraction and score calculation more efficiently, improving performance in scenarios involving large hands or multiple players. Through these contributions, AI helped enhance the functionality, performance, and overall robustness of the package.
+
+Christy: https://chatgpt.com/share/68416bd1-d9d4-8004-a789-99d59d1aa70a
+Sarah: https://chatgpt.com/share/68417063-9450-8004-8166-93f23327fa4a
 
 
 
