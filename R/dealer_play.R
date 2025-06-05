@@ -6,6 +6,19 @@
 #' @param deck Character vector of the remaining deck
 #'
 #' @return A list with updated dealer_hand and deck
+#' @examples
+#' # Basic example
+#' set.seed(123)
+#' deck <- create_board(1)
+#' dealer_hand <- c("A♠", "6♦")
+#' result <- dealer_play(dealer_hand, deck)
+#' print(result$dealer_hand)  # Should show hand with score >= 17
+#'
+#' # Dealer hits on soft 17: A♠ + 6♠
+#' deck <- c("5♣", "2♦", "3♥", "K♠", "8♠", "9♣")  # sample deck
+#' dealer_hand <- c("A♠", "6♠")
+#' dealer_play(dealer_hand, deck)
+#'
 #' @export
 
 dealer_play <- function(dealer_hand, deck, rule = "standard") {

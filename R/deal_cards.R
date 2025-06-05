@@ -5,6 +5,13 @@
 #' @param num_players Number of players
 #' @param deck A shuffled deck of cards
 #' @return A list with player_hands, dealer_hand (1 card), and remaining deck
+#' @examples
+#' # Example: Deal to 2 players from a fresh deck
+#' deck <- create_board(1)
+#' result <- deal_cards(num_players = 2, deck)
+#' result$player_hands  # list of two hands
+#' result$dealer_hand   # single card
+#' length(result$deck)  # 52 - 2*2 - 1 = 47
 #' @export
 deal_cards <- function(num_players, deck) {
   player_hands <- vector("list", num_players)
