@@ -347,16 +347,22 @@ simulate a full round of Blackjack with multiple players. Players can
 perform actions like hitting, standing, splitting, doubling down, and
 even making insurance bets. The game follows classic Blackjack rules,
 with enhancements for player interaction.</p>
-<p>This vignette will guide you through how to use the package,
-including rules that are required to know.</p>
+<p>This vignette will walk you through:</p>
+<ul>
+<li><p>An overview of Blackjack rules</p></li>
+<li><p>How to install and load the package</p></li>
+<li><p>How to play the game interactively</p></li>
+<li><p>How to use individual functions</p></li>
+</ul>
 <div id="setup" class="section level2">
-<h2>Setup</h2>
+<h2>⚙️ Setup</h2>
 <p>To start using the Blackjack package, you need to install it. If you
 haven’t done so yet, you can install the package from <a href="https://github.com/MonashARP/game-package-wallabies.git">GitHub</a>.
 For detailed instructions, please refer to the installation guide on the
 homepage.</p>
 <p>Once installed, you can load the package using:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(Blackjack)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(Blackjack)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(vctrs)</span></code></pre></div>
 </div>
 </div>
 <div id="blackjack-rules" class="section level1">
@@ -410,7 +416,7 @@ player wins.</p></li>
 </div>
 </div>
 <div id="start-experimenting-and-playing-the-game" class="section level1">
-<h1>Start experimenting and playing the game!</h1>
+<h1>▶️ Start experimenting and playing the game!</h1>
 <p>By using <code>play_blackjack()</code>, you will be able to enter the
 world of Blackjack!</p>
 <p>This function allows you to play a full interactive game of
@@ -425,6 +431,159 @@ to Blackjack rules.</li>
 <li><strong>Outcome</strong>: Announces the winner for each player based
 on the final hand values.</li>
 </ol>
+<div id="example-gameplay" class="section level2">
+<h2>Example Gameplay</h2>
+<p>To play a full interactive round of Blackjack, run:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">play_blackjack</span>()</span></code></pre></div>
+<p>Here’s what a typical interactive session might look like when
+running <code>play_blackjack()</code>:</p>
+<p>🎮 Welcome to Blackjack!</p>
+<p>🎲 How many players? 3</p>
+<p>🃏 How many decks? (Enter for default):</p>
+<p>🤵 Dealer shows: 3♣</p>
+<p>👤 Player1 initial hand: 9♦, Q♠</p>
+<p>➤ Do you want to surrender? (y/n): n</p>
+<p>➤ Current hand: 9♦, Q♠ ( 19 )</p>
+<p>➤ Hit or stand? (h/s): h</p>
+<p>➤ Current hand: 9♦, Q♠, A♥ ( 20 )</p>
+<p>➤ Hit or stand? (h/s): s</p>
+<p>→ Final score: 20</p>
+<p>👤 Player2 initial hand: 8♦, 7♣</p>
+<p>➤ Do you want to surrender? (y/n): n</p>
+<p>➤ Current hand: 8♦, 7♣ ( 15 )</p>
+<p>➤ Hit or stand? (h/s): h</p>
+<p>→ Final score: 25 💥 BUST!</p>
+<p>👤 Player3 initial hand: K♥, Q♣</p>
+<p>➤ Do you want to surrender? (y/n): n</p>
+<p>➤ Current hand: K♥, Q♣ ( 20 )</p>
+<p>➤ Hit or stand? (h/s): s</p>
+<p>→ Final score: 20</p>
+<p>🤵 Dealer’s full hand: 3♣, 9♦</p>
+<p>✅ Dealer’s final hand: 3♣, 9♦, 10♠</p>
+<p>➡ Dealer score: 22 💥 BUST!</p>
+<p>👤 Player1 : Win</p>
+<p>👤 Player2 : Lose</p>
+<p>👤 Player3 : Win</p>
+<p><sup>Created on 2025-06-05 with <a href="https://reprex.tidyverse.org">reprex v2.1.1</a></sup></p>
+<p>This example illustrates how multiple players can take actions (hit,
+stand, surrender), and how the dealer automatically plays their hand.
+Results are calculated based on Blackjack rules and shown at the end of
+the round.</p>
+</div>
+</div>
+<div id="using-helper-functions" class="section level1">
+<h1>🧩 Using Helper Functions</h1>
+<p>You can also manually test or explore game logic using core
+functions:</p>
+<p><strong>Create Deck</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>deck <span class="ot">&lt;-</span> <span class="fu">create_board</span>(<span class="at">num_decks =</span> <span class="dv">1</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">head</span>(deck)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt; [1] &quot;7♦&quot; &quot;3♣&quot; &quot;5♣&quot; &quot;3♥&quot; &quot;2♦&quot; &quot;A♠&quot;</span></span></code></pre></div>
+<p><strong>Deal Cards</strong></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>hands <span class="ot">&lt;-</span> <span class="fu">deal_cards</span>(<span class="at">num_players =</span> <span class="dv">2</span>, deck)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>hands<span class="sc">$</span>player_hands</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; [1] &quot;7♦&quot; &quot;3♣&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;5♣&quot; &quot;3♥&quot;</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>hands<span class="sc">$</span>dealer_hand</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2♦&quot;</span></span></code></pre></div>
+<p><strong>Score a Hand</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">score_hand</span>(<span class="fu">c</span>(<span class="st">&quot;A♠&quot;</span>, <span class="st">&quot;K♦&quot;</span>)) <span class="co"># Returns 21</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; [1] 21</span></span></code></pre></div>
+<p><strong>Split a Hand</strong></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">player_split</span>(<span class="fu">c</span>(<span class="st">&quot;8♠&quot;</span>, <span class="st">&quot;8♦&quot;</span>))</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#&gt; $can_split</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; $hands</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; $hands[[1]]</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;8♠&quot;</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; $hands[[2]]</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; [1] &quot;8♦&quot;</span></span></code></pre></div>
+<p><strong>Surrender</strong></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">surrender_hand</span>(<span class="fu">c</span>(<span class="st">&quot;10&quot;</span>, <span class="st">&quot;6&quot;</span>), <span class="cn">TRUE</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co">#&gt; $status</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt; [1] &quot;surrendered&quot;</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; $payout</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; [1] 0.5</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt; $message</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Player surrendered. Half bet lost.&quot;</span></span></code></pre></div>
+<p><strong>Double Down</strong></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>dd_result <span class="ot">&lt;-</span> <span class="fu">double_down</span>(<span class="fu">c</span>(<span class="st">&quot;5♠&quot;</span>, <span class="st">&quot;6♠&quot;</span>), <span class="fu">create_board</span>())</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>dd_result<span class="sc">$</span>new_hand</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; [1] &quot;5♠&quot; &quot;6♠&quot; &quot;5♥&quot;</span></span></code></pre></div>
+<p><strong>Dealer Play</strong></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">dealer_play</span>(<span class="fu">c</span>(<span class="st">&quot;7♠&quot;</span>, <span class="st">&quot;9♦&quot;</span>), <span class="fu">create_board</span>())</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co">#&gt; $dealer_hand</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co">#&gt; [1] &quot;7♠&quot; &quot;9♦&quot; &quot;Q♦&quot;</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; $deck</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt;   [1] &quot;J♥&quot;  &quot;Q♠&quot;  &quot;A♠&quot;  &quot;2♥&quot;  &quot;8♥&quot;  &quot;5♥&quot;  &quot;3♥&quot;  &quot;K♦&quot;  &quot;3♥&quot;  &quot;5♣&quot;  &quot;7♣&quot;  &quot;9♣&quot; </span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt;  [13] &quot;5♣&quot;  &quot;6♥&quot;  &quot;9♦&quot;  &quot;2♣&quot;  &quot;K♥&quot;  &quot;10♦&quot; &quot;7♦&quot;  &quot;9♥&quot;  &quot;10♦&quot; &quot;7♣&quot;  &quot;K♣&quot;  &quot;9♦&quot; </span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt;  [25] &quot;8♣&quot;  &quot;2♥&quot;  &quot;9♦&quot;  &quot;K♣&quot;  &quot;K♦&quot;  &quot;8♥&quot;  &quot;7♠&quot;  &quot;2♣&quot;  &quot;8♠&quot;  &quot;6♣&quot;  &quot;7♥&quot;  &quot;J♥&quot; </span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt;  [37] &quot;8♠&quot;  &quot;6♠&quot;  &quot;8♣&quot;  &quot;5♠&quot;  &quot;2♠&quot;  &quot;3♦&quot;  &quot;5♦&quot;  &quot;4♠&quot;  &quot;2♠&quot;  &quot;J♠&quot;  &quot;6♠&quot;  &quot;7♠&quot; </span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt;  [49] &quot;3♥&quot;  &quot;7♥&quot;  &quot;10♣&quot; &quot;4♥&quot;  &quot;9♣&quot;  &quot;7♠&quot;  &quot;8♦&quot;  &quot;Q♥&quot;  &quot;10♥&quot; &quot;6♦&quot;  &quot;Q♠&quot;  &quot;A♥&quot; </span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt;  [61] &quot;A♥&quot;  &quot;Q♣&quot;  &quot;10♦&quot; &quot;10♦&quot; &quot;6♥&quot;  &quot;J♣&quot;  &quot;Q♦&quot;  &quot;K♠&quot;  &quot;3♠&quot;  &quot;Q♦&quot;  &quot;7♦&quot;  &quot;Q♥&quot; </span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt;  [73] &quot;6♦&quot;  &quot;5♠&quot;  &quot;8♦&quot;  &quot;4♣&quot;  &quot;8♠&quot;  &quot;A♦&quot;  &quot;3♠&quot;  &quot;9♥&quot;  &quot;10♠&quot; &quot;3♠&quot;  &quot;9♠&quot;  &quot;3♣&quot; </span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt;  [85] &quot;6♥&quot;  &quot;Q♠&quot;  &quot;4♥&quot;  &quot;J♠&quot;  &quot;Q♦&quot;  &quot;4♠&quot;  &quot;3♠&quot;  &quot;2♦&quot;  &quot;6♣&quot;  &quot;10♠&quot; &quot;K♥&quot;  &quot;10♣&quot;</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt;  [97] &quot;J♥&quot;  &quot;4♦&quot;  &quot;K♠&quot;  &quot;K♦&quot;  &quot;5♣&quot;  &quot;8♣&quot;  &quot;9♣&quot;  &quot;6♣&quot;  &quot;10♠&quot; &quot;A♥&quot;  &quot;2♦&quot;  &quot;4♦&quot; </span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; [109] &quot;J♠&quot;  &quot;9♠&quot;  &quot;7♣&quot;  &quot;A♠&quot;  &quot;5♦&quot;  &quot;9♥&quot;  &quot;2♣&quot;  &quot;2♦&quot;  &quot;K♠&quot;  &quot;6♦&quot;  &quot;A♦&quot;  &quot;5♦&quot; </span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt; [121] &quot;K♣&quot;  &quot;3♣&quot;  &quot;8♥&quot;  &quot;J♣&quot;  &quot;6♥&quot;  &quot;J♣&quot;  &quot;10♣&quot; &quot;Q♥&quot;  &quot;7♦&quot;  &quot;Q♠&quot;  &quot;6♣&quot;  &quot;4♣&quot; </span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt; [133] &quot;A♠&quot;  &quot;A♣&quot;  &quot;4♥&quot;  &quot;8♣&quot;  &quot;4♣&quot;  &quot;J♥&quot;  &quot;Q♣&quot;  &quot;7♦&quot;  &quot;K♥&quot;  &quot;A♦&quot;  &quot;5♥&quot;  &quot;J♠&quot; </span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt; [145] &quot;A♣&quot;  &quot;Q♥&quot;  &quot;A♠&quot;  &quot;A♣&quot;  &quot;J♣&quot;  &quot;10♥&quot; &quot;5♠&quot;  &quot;Q♣&quot;  &quot;J♦&quot;  &quot;3♣&quot;  &quot;2♠&quot;  &quot;5♥&quot; </span></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt; [157] &quot;10♥&quot; &quot;6♠&quot;  &quot;5♦&quot;  &quot;7♥&quot;  &quot;9♣&quot;  &quot;10♥&quot; &quot;7♣&quot;  &quot;8♠&quot;  &quot;9♦&quot;  &quot;4♠&quot;  &quot;5♥&quot;  &quot;J♦&quot; </span></span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="co">#&gt; [169] &quot;4♣&quot;  &quot;8♦&quot;  &quot;2♥&quot;  &quot;2♥&quot;  &quot;J♦&quot;  &quot;9♠&quot;  &quot;K♠&quot;  &quot;4♦&quot;  &quot;4♦&quot;  &quot;9♥&quot;  &quot;3♦&quot;  &quot;K♣&quot; </span></span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="co">#&gt; [181] &quot;3♦&quot;  &quot;K♥&quot;  &quot;10♣&quot; &quot;2♦&quot;  &quot;8♦&quot;  &quot;7♠&quot;  &quot;4♠&quot;  &quot;4♥&quot;  &quot;2♠&quot;  &quot;Q♣&quot;  &quot;9♠&quot;  &quot;5♣&quot; </span></span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="co">#&gt; [193] &quot;K♦&quot;  &quot;6♦&quot;  &quot;2♣&quot;  &quot;3♦&quot;  &quot;A♣&quot;  &quot;10♠&quot; &quot;A♥&quot;  &quot;3♣&quot;  &quot;A♦&quot;  &quot;8♥&quot;  &quot;5♠&quot;  &quot;6♠&quot; </span></span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="co">#&gt; [205] &quot;J♦&quot;  &quot;3♥&quot;  &quot;7♥&quot;</span></span></code></pre></div>
+</div>
+<div id="advanced-custom-card-vector" class="section level1">
+<h1>Advanced: Custom Card Vector</h1>
+<p>To manage cards in a more structured way, this package includes a
+custom vctrs-based class called card_vector. This class allows you to
+work with cards while maintaining strong type consistency and
+formatting.</p>
+<p><strong>Create a card vector</strong> You can create a card_vector
+from a character vector of cards:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>deck <span class="ot">&lt;-</span> <span class="fu">card_vector</span>(<span class="fu">c</span>(<span class="st">&quot;A♠&quot;</span>, <span class="st">&quot;10♣&quot;</span>, <span class="st">&quot;K♥&quot;</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>deck</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt; &lt;card_vector[3]&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#&gt; [1] [A♠]  [10♣] [K♥]</span></span></code></pre></div>
+<p><strong>Coercion Methods</strong> You can safely convert between
+card_vector and base types using vctrs coercion:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Convert to character</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">as.character</span>(deck)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#&gt; [1] &quot;A♠&quot;  &quot;10♣&quot; &quot;K♥&quot;</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co"># Convert from character to card_vector</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>char_deck <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Q♥&quot;</span>, <span class="st">&quot;8♣&quot;</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="fu">vec_cast</span>(char_deck, <span class="at">to =</span> <span class="fu">card_vector</span>())</span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Q♥&quot; &quot;8♣&quot;</span></span></code></pre></div>
+<p><strong>Extract Card Ranks and Suits</strong></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">card_rank</span>(deck)  </span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;A&quot;  &quot;10&quot; &quot;K&quot;</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="fu">card_suit</span>(deck)  </span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="co">#&gt; [1] &quot;♠&quot; &quot;♣&quot; &quot;♥&quot;</span></span></code></pre></div>
+<p><strong>Check for face cards</strong></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">card_is_face</span>(deck)  <span class="co"># FALSE FALSE TRUE</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co">#&gt; [1] FALSE FALSE  TRUE</span></span></code></pre></div>
+<p><strong>Type Compatibility</strong> The card_vector integrates
+smoothly with vctrs generics like vec_ptype2() and vec_cast():</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">vec_ptype2</span>(deck, deck)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="co">#&gt; &lt;card_vector[0]&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="fu">vec_cast</span>(deck, <span class="at">to =</span> <span class="fu">character</span>())</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co">#&gt; &lt;card_vector[3]&gt;</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="co">#&gt; [1] [A♠]  [10♣] [K♥]</span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="fu">vec_cast</span>(<span class="fu">c</span>(<span class="st">&quot;J♣&quot;</span>, <span class="st">&quot;3♠&quot;</span>), <span class="at">to =</span> <span class="fu">card_vector</span>())</span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;J♣&quot; &quot;3♠&quot;</span></span></code></pre></div>
+<p>We hope this helps you simulate, test, and enjoy Blackjack in a fun
+and programmable way!</p>
+<p>🃏 Good luck at the virtual table!</p>
 </div>
 
 

@@ -20,8 +20,6 @@ The arguments for the functions are designed to be intuitive, minimizing the nee
 
 - dealer_hand and player_hands in `dealer_play()` and `deal_cards()` represent the hands of the dealer and the players, ensuring clarity when referencing the cards being dealt.
 
-- rule in `score_hand_dynamic()` allows users to customize the scoring rules, making it flexible and accommodating to various variations of Blackjack.
-
 - player_accepts in `insurance_bet()` makes it clear whether the player has accepted the insurance bet, reflecting the player's choice.
 
 
@@ -92,8 +90,6 @@ These functions manage the player's betting actions, such as doubling down, taki
 
 #### Scoring Functions
 These functions calculate the score of the player’s hand and manage the game's rules for scoring.
-
-- `score_hand_dynamic()`: Calculates the score of a hand based on dynamic rules (standard or custom), returning the score of the hand, adjusting for Aces based on the rule passed (e.g., Ace as 1 or 11).
 
 - `score_hand()`: Calculates the score of a hand, adjusting for Aces (if score > 21, Ace is treated as 1) and returns the score of the hand, considering the Ace as 1 if necessary.
 

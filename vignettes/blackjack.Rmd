@@ -36,6 +36,7 @@ To start using the Blackjack package, you need to install it. If you haven't don
 Once installed, you can load the package using:
 ```{r}
 library(Blackjack)
+library(vctrs)
 ```
 
 #  Blackjack Rules
@@ -185,23 +186,44 @@ dealer_play(c("7♠", "9♦"), create_board())
 ```
 
 # Advanced: Custom Card Vector
-We implemented a custom S3 vctrs class called card_vector to give cards richer behavior in R.
+To manage cards in a more structured way, this package includes a custom vctrs-based class called card_vector. This class allows you to work with cards while maintaining strong type consistency and formatting.
 
 **Create a card vector**
+You can create a card_vector from a character vector of cards:
 ```{r}
 deck <- card_vector(c("A♠", "10♣", "K♥"))
 deck
 ```
 
-**Extract suits or ranks**
+**Coercion Methods**
+You can safely convert between card_vector and base types using vctrs coercion:
 ```{r}
-card_rank(deck)  # "A" "10" "K"
-card_suit(deck)  # "♠" "♣" "♥"
+# Convert to character
+as.character(deck)
+
+# Convert from character to card_vector
+char_deck <- c("Q♥", "8♣")
+vec_cast(char_deck, to = card_vector())
+
+```
+
+**Extract Card Ranks and Suits**
+```{r}
+card_rank(deck)  
+card_suit(deck)  
 ```
 
 **Check for face cards**
 ```{r}
 card_is_face(deck)  # FALSE FALSE TRUE
+```
+
+**Type Compatibility**
+The card_vector integrates smoothly with vctrs generics like vec_ptype2() and vec_cast():
+```{r}
+vec_ptype2(deck, deck)
+vec_cast(deck, to = character())
+vec_cast(c("J♣", "3♠"), to = card_vector())
 ```
 
 
