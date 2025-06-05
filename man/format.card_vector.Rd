@@ -2,7 +2,7 @@
 % Please edit documentation in R/card_vector.R
 \name{format.card_vector}
 \alias{format.card_vector}
-\title{Format Method for the \code{card_vector} Class}
+\title{Format Method for \code{card_vector}}
 \usage{
 \method{format}{card_vector}(x, ...)
 }

@@ -14,14 +14,15 @@
 \item{...}{Additional arguments for method dispatch.}
 }
 \value{
-The original \code{card_vector} object, as no conversion is needed.
+The original \code{card_vector} object, or a converted object.
 }
 \description{
-Coercion method for casting one \code{card_vector} to another.
+Coerces a \code{card_vector} object to another type (e.g., \code{character}).
 }
 \examples{
 # Coerce between two card_vectors
 deck1 <- card_vector(c("A♠", "10♣"))
-deck2 <- vec_cast(deck1, to = "card_vector")
-deck2
+deck2 <- as.character(deck1)
+deck3 <- vctrs::vec_cast(deck2, to = "character")
+deck3
 }

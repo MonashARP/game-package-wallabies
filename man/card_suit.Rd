@@ -10,10 +10,10 @@ card_suit(x)
 \item{x}{A \code{card_vector} object.}
 }
 \value{
-A character vector containing the suits of the cards (e.g., "♠", "♥").
+A character vector containing the suits of the cards.
 }
 \description{
-Extracts the suit (♠, ♥, ♦, ♣) of each card in the \code{card_vector}.
+Extracts the suit of each card in the \code{card_vector}.
 }
 \examples{
 # Extract card suits from a deck

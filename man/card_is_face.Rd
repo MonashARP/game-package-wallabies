@@ -10,10 +10,10 @@ card_is_face(x)
 \item{x}{A \code{card_vector} object.}
 }
 \value{
-A logical vector indicating whether each card is a face card (TRUE) or not (FALSE).
+A logical vector indicating whether each card is a face card.
 }
 \description{
-Identifies whether each card in the \code{card_vector} is a face card (Jack, Queen, or King).
+Identifies whether each card in the \code{card_vector} is a face card (J, Q, K).
 }
 \examples{
 # Check for face cards in a deck

@@ -10,7 +10,7 @@ card_rank(x)
 \item{x}{A \code{card_vector} object.}
 }
 \value{
-A character vector containing the ranks of the cards (e.g., "A", "10", "Q").
+A character vector containing the ranks of the cards.
 }
 \description{
 Extracts the rank (number or face value) of each card in the \code{card_vector}.

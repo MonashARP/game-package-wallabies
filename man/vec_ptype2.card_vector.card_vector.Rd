@@ -21,5 +21,5 @@ Type coercion method for \code{card_vector} to ensure compatibility with other \
 # Type coercion method in action
 deck1 <- card_vector(c("A♠", "10♣"))
 deck2 <- card_vector(c("K♥", "Q♠"))
-vec_ptype2(deck1, deck2)
+vctrs::vec_ptype2(deck1, deck2)
 }

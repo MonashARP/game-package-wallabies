@@ -25,17 +25,17 @@ The arguments for the functions are designed to be intuitive, minimizing the nee
 - player_accepts in `insurance_bet()` makes it clear whether the player has accepted the insurance bet, reflecting the player's choice.
 
 
-### Usage of metaprogramming and C++
+### Usage of Non-standard evaluation and C++
 
-#### Meta-programming for Flexibility
-The package leverages meta-programming to provide flexible rule customization and dynamic evaluation of game logic. The `score_hand_dynamic()` function, for example, allows users to choose between different scoring rules (e.g., treating Aces as 1 or 11). This dynamic evaluation adapts the game without modifying core code, enabling users to easily experiment with custom rules.
 
-**Non-standard evaluation (NSE)** is used to capture and evaluate user input dynamically (e.g., “Hit” or “Stand”), allowing for flexible game flow and extending the package’s functionality. Modular functions, such as `player_split()` and `dealer_play()`, ensure that each game aspect is independent and easy to extend, making the codebase adaptable to new rules or features.
+####Non-standard evaluation (NSE)** 
+NSE is used to capture and evaluate user input dynamically (e.g., “Hit” or “Stand”), allowing for flexible game flow and extending the package’s functionality. Modular functions, such as `player_split()` and `dealer_play()`, ensure that each game aspect is independent and easy to extend, making the codebase adaptable to new rules or features.
 
 #### C++ Integration for Performance Enhancement
-The Blackjack package leverages C++ through the Rcpp package to optimize the performance of specific computationally-intensive functions. R, while being highly versatile, can sometimes fall short in performance when it comes to repetitive calculations or operations that require significant computational resources. This is particularly evident in the context of card games like Blackjack, where calculating scores for each hand repeatedly can become a bottleneck as the game progresses, especially in scenarios involving multiple players or large decks.
+The Blackjack package integrates C++ through the use of Rcpp to efficiently handle card scoring. Specifically, the cpp_score_hand function calculates the total score of a player's hand, iterating over the cards, mapping their ranks to values, and adjusting for Aces (counting them as either 1 or 11). This integration allows the package to offload computation-heavy tasks to C++, significantly improving the performance, especially when dealing with multiple players or simulations. By using a std::map to store card values and handling Aces dynamically, the C++ code is optimized for speed, making the game flow faster and smoother.
 
-To address this limitation, we incorporated C++ into the package, specifically to handle the scoring of hands in a more efficient manner. The function `cpp_score_hand()`, implemented in C++, is used for calculating the score of a player's hand based on the values of the cards. By utilizing C++ for these operations, we benefit from the speed and efficiency of compiled code, which offers a significant performance improvement over interpreting the same logic in R.
+The C++ function is seamlessly exposed to R, allowing users to invoke it directly through Rcpp's export functionality. This integration minimizes the overhead of R's native loops, ensuring that the hand-scoring operation is efficient even in computationally intense scenarios. Additionally, the R interface ensures that errors, such as invalid card ranks, are properly handled, providing a robust experience for users. The C++ integration thus serves as a performance enhancement, enabling the package to handle larger datasets or more rounds without compromising on responsiveness. Future enhancements could include additional optimizations or a deeper integration of C++ for other aspects of the game.
+
 
 ### Generic functions
 - **Single-purpose functions**: Each exported function has one clear job (dealing, scoring, splitting, insurance, etc.), supporting easier testing and extension.
