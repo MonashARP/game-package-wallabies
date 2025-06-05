@@ -3,7 +3,7 @@
 #' Asks user for number of players and decks, and plays a full round of Blackjack
 #'
 #' @export
-# Updated play_blackjack function
+
 play_blackjack <- function(rule = "standard") {
   cat("🎮 Welcome to Blackjack!\n")
 

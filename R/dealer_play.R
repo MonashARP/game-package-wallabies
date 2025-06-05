@@ -4,6 +4,7 @@
 #'
 #' @param dealer_hand Character vector of the dealer's current hand
 #' @param deck Character vector of the remaining deck
+#' @param rule Character vector of the chosen rule for Ace scoring
 #'
 #' @return A list with updated dealer_hand and deck
 #' @examples

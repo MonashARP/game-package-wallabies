@@ -5,6 +5,7 @@
 #'
 #' @param dealer_hand A character vector of two cards (e.g., c("A♠", "10♦"))
 #' @param player_accepts Logical, TRUE if player accepts insurance
+#' @param rule Character vector of the chosen rule for Ace scoring
 #'
 #' @return A list with insurance_available, insurance_paid, payout, blackjack
 #'

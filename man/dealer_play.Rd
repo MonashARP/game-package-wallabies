@@ -10,6 +10,8 @@ dealer_play(dealer_hand, deck, rule = "standard")
 \item{dealer_hand}{Character vector of the dealer's current hand}
 
 \item{deck}{Character vector of the remaining deck}
+
+\item{rule}{Character vector of the chosen rule for Ace scoring}
 }
 \value{
 A list with updated dealer_hand and deck

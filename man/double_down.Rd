@@ -10,6 +10,8 @@ double_down(hand, deck, rule = "standard")
 \item{hand}{Character vector of player hand}
 
 \item{deck}{Character vector of remaining deck}
+
+\item{rule}{Character vector of the chosen rule for Ace scoring}
 }
 \value{
 A list with:
@@ -23,7 +25,7 @@ A list with:
 Player adds exactly one card to their initial 2-card hand.
 }
 \examples{
-Example setup
+# Example setup
 hand <- c("5♠", "6♦")
 deck <- c("9♣", "10♦", "3♥")  # top of deck is 9♣
 

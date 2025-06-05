@@ -5,11 +5,13 @@
 #'
 #' @param x A character vector of cards, e.g., "A♠", "10♣", "K♥"
 #' @return A `card_vector` object with class `"card_vector"`, inheriting from `"vctrs_vctr"`
-#' @export
+#' @import vctrs
+#'
 #' @examples
 #' # Create a card vector with a few cards
 #' deck <- card_vector(c("A♠", "10♣", "K♥"))
 #' deck
+#' @export
 card_vector <- function(x = character()) {
   vctrs::vec_assert(x, character())  # Ensure that input is a character vector
   structure(x, class = c("card_vector", "vctrs_vctr"))  # Create the custom card vector
@@ -38,12 +40,13 @@ format.card_vector <- function(x, ...) {
 #' @param x, y Objects to compare for type compatibility.
 #' @param ... Additional arguments for method dispatch.
 #' @return A `card_vector` object.
-#' @export
+#'
 #' @examples
 #' # Type coercion method in action
 #' deck1 <- card_vector(c("A♠", "10♣"))
 #' deck2 <- card_vector(c("K♥", "Q♠"))
 #' vec_ptype2(deck1, deck2)
+#' @export
 vec_ptype2.card_vector.card_vector <- function(x, y, ...) {
   card_vector()  # Return a `card_vector` type when comparing two card_vectors
 }
@@ -56,13 +59,14 @@ vec_ptype2.card_vector.card_vector <- function(x, y, ...) {
 #' @param to The target class to cast to.
 #' @param ... Additional arguments for method dispatch.
 #' @return The original `card_vector` object, as no conversion is needed.
-#' @import vctrs
-#' @export
+#'
+#'
 #' @examples
 #' # Coerce between two card_vectors
 #' deck1 <- card_vector(c("A♠", "10♣"))
 #' deck2 <- vec_cast(deck1, to = "card_vector")
 #' deck2
+#' @export
 vec_cast.card_vector.card_vector <- function(x, to, ...) {
   x  # Return the original object as no casting is required between the same class
 }
@@ -73,11 +77,12 @@ vec_cast.card_vector.card_vector <- function(x, to, ...) {
 #'
 #' @param x A `card_vector` object.
 #' @return A character vector containing the ranks of the cards (e.g., "A", "10", "Q").
-#' @export
+#'
 #' @examples
 #' # Extract card ranks from a deck
 #' deck <- card_vector(c("A♠", "10♣", "K♥"))
 #' card_rank(deck)
+#' @export
 card_rank <- function(x) {
   stopifnot(inherits(x, "card_vector"))  # Ensure input is a valid card_vector
   ranks <- vctrs::vec_data(x)  # Extract the underlying character data
@@ -90,11 +95,12 @@ card_rank <- function(x) {
 #'
 #' @param x A `card_vector` object.
 #' @return A character vector containing the suits of the cards (e.g., "♠", "♥").
-#' @export
+#'
 #' @examples
 #' # Extract card suits from a deck
 #' deck <- card_vector(c("A♠", "10♣", "K♥"))
 #' card_suit(deck)
+#' @export
 card_suit <- function(x) {
   stopifnot(inherits(x, "card_vector"))  # Ensure input is a valid card_vector
   ranks <- vctrs::vec_data(x)  # Extract the underlying character data
@@ -107,11 +113,12 @@ card_suit <- function(x) {
 #'
 #' @param x A `card_vector` object.
 #' @return A logical vector indicating whether each card is a face card (TRUE) or not (FALSE).
-#' @export
+#'
 #' @examples
 #' # Check for face cards in a deck
 #' deck <- card_vector(c("A♠", "10♣", "K♥", "Q♠"))
 #' card_is_face(deck)
+#' @export
 card_is_face <- function(x) {
   rank <- card_rank(x)  # Extract card ranks
   rank %in% c("J", "Q", "K")  # Return TRUE if the rank is J, Q, or K

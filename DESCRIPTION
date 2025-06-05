@@ -22,4 +22,7 @@ Suggests:
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 LinkingTo: Rcpp
-Imports: Rcpp
+Imports: 
+    Rcpp,
+    vctrs
+

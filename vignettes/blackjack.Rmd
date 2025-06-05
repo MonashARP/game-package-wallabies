@@ -18,19 +18,28 @@ knitr::opts_chunk$set(
 
 Welcome to the Blackjack game vignette! This package allows you to simulate a full round of Blackjack with multiple players. Players can perform actions like hitting, standing, splitting, doubling down, and even making insurance bets. The game follows classic Blackjack rules, with enhancements for player interaction.
 
-This vignette will guide you through how to use the package, including rules that
-are required to know.
+This vignette will walk you through:
 
-## Setup
+- An overview of Blackjack rules
+
+- How to install and load the package
+
+- How to play the game interactively
+
+- How to use individual functions
+
+
+## ⚙️ Setup
 
 To start using the Blackjack package, you need to install it. If you haven't done so yet, you can install the package from [GitHub](https://github.com/MonashARP/game-package-wallabies.git). For detailed instructions, please refer to the installation guide on the homepage.
 
 Once installed, you can load the package using:
-```{r eval=FALSE}
+```{r}
 library(Blackjack)
+library(vctrs)
 ```
 
-# Blackjack Rules
+#  Blackjack Rules
 
 Blackjack, also known as 21, is a popular card game played between a dealer and one or more players. The goal of the game is to have a hand total that is closer to 21 than the dealer’s hand, without going over 21 (which is known as "busting").
 
@@ -57,47 +66,8 @@ Blackjack, also known as 21, is a popular card game played between a dealer and 
 
 4. **Winning**: The player wins if their hand total is closer to 21 than the dealer’s without busting. If both the player and dealer have the same total, it’s a tie (push). If the dealer busts, the player wins.
 
-## Example Gameplay
-```{r}
-# Create and shuffle a 4-deck shoe
-deck <- create_board(num_decks = 4)
 
-# Deal to two players
-deal <- deal_cards(num_players = 2, deck)
-player_hands <- deal$player_hands
-dealer_hand <- deal$dealer_hand
-remaining_deck <- deal$deck
-
-# Score a hand
-score_hand(player_hands[[1]])
-score_hand_dynamic(player_hands[[1]], rule = "standard")
-
-# Dealer logic
-dealer_play(dealer_hand, remaining_deck)
-
-# Player actions
-player_split(player_hands[[1]])
-double_down(player_hands[[1]], remaining_deck)
-insurance_bet(c("A♠", "10♣"), player_accepts = TRUE)
-surrender_hand(player_hands[[1]])
-
-# Announce winner
-player_scores <- sapply(player_hands, score_hand)
-dealer_score <- score_hand(dealer_hand)
-announce_winner(player_scores, dealer_score)
-```
-
-## Custom Card Vectors
-```{r}
-cards <- card_vector(c("A♠", "10♣", "K♥"))
-print(cards)
-card_rank(cards)
-card_suit(cards)
-card_is_face(cards)
-```
-
-
-# Start experimenting and playing the game!
+# ▶️ Start experimenting and playing the game!
 By using `play_blackjack()`, you will be able to enter the world of Blackjack!
 
 This function allows you to play a full interactive game of Blackjack. This function handles the following:
@@ -107,11 +77,137 @@ This function allows you to play a full interactive game of Blackjack. This func
 3. **Dealer’s Play**: Handles the dealer's turn according to Blackjack rules.
 4. **Outcome**: Announces the winner for each player based on the final hand values.
 
-## Design Principles 
-1. Modular Single purpose functions
-2. Robust vctrs-based card objects for data safety.
-3. Custom rules enabled via arguments.
-4. All results are composable, printable, and testable.
+## Example
+```{r eval=FALSE}
+play_blackjack()
+```
+
+🎮 Welcome to Blackjack!
+
+🎲 How many players? 3
+
+🃏 How many decks? (Enter for default): 
+
+🤵 Dealer shows:  3♣ 
+
+👤 Player1 initial hand: 9♦, Q♠ 
+
+  ➤ Do you want to surrender? (y/n): n
+  
+  ➤ Current hand: 9♦, Q♠ ( 19 )
+  
+  ➤ Hit or stand? (h/s): h
+  
+  ➤ Current hand: 9♦, Q♠, A♥ ( 20 )
+  
+  ➤ Hit or stand? (h/s): s
+  
+  → Final score: 20  
+
+👤 Player2 initial hand: 8♦, 7♣ 
+
+  ➤ Do you want to surrender? (y/n): n
+  
+  ➤ Current hand: 8♦, 7♣ ( 15 )
+  
+  ➤ Hit or stand? (h/s): h
+  
+  → Final score: 25  💥 BUST! 
+
+👤 Player3 initial hand: K♥, Q♣ 
+
+  ➤ Do you want to surrender? (y/n): n
+  
+  ➤ Current hand: K♥, Q♣ ( 20 )
+  
+  ➤ Hit or stand? (h/s): s
+  
+  → Final score: 20  
+
+🤵 Dealer's full hand: 3♣, 9♦ 
+
+✅ Dealer's final hand: 3♣, 9♦, 10♠ 
+
+➡ Dealer score: 22  💥 BUST! 
+
+👤 Player1 : Win 
+
+👤 Player2 : Lose 
+
+👤 Player3 : Win 
+
+<sup>Created on 2025-06-05 with [reprex v2.1.1](https://reprex.tidyverse.org)</sup>
+
+# 🧩 Using Helper Functions
+You can also manually test or explore game logic using core functions:
+
+**Create Deck**
+```{r}
+deck <- create_board(num_decks = 1)
+head(deck)
+```
+
+**Deal Cards**
+```{r}
+hands <- deal_cards(num_players = 2, deck)
+hands$player_hands
+hands$dealer_hand
+```
+
+**Score a Hand**
+```{r}
+score_hand(c("A♠", "K♦")) # Returns 21
+```
+
+**Split a Hand**
+```{r}
+player_split(c("8♠", "8♦"))
+```
+
+**Surrender**
+```{r}
+surrender_hand(c("10", "6"), TRUE)
+```
+
+**Double Down**
+```{r}
+dd_result <- double_down(c("5♠", "6♠"), create_board())
+dd_result$new_hand
+```
+
+**Dealer Play**
+```{r}
+dealer_play(c("7♠", "9♦"), create_board())
+```
+
+**Use C++ Hand Scoring**
+```{r}
+score_hand_dynamic(c("A♠", "K♠"))  # Returns 21
+
+```
 
 
+# Advanced: Custom Card Vector
+We implemented a custom S3 vctrs class called card_vector to give cards richer behavior in R.
 
+**Create a card vector**
+```{r}
+deck <- card_vector(c("A♠", "10♣", "K♥"))
+deck
+```
+
+**Extract suits or ranks**
+```{r}
+card_rank(deck)  # "A" "10" "K"
+card_suit(deck)  # "♠" "♣" "♥"
+```
+
+**Check for face cards**
+```{r}
+card_is_face(deck)  # FALSE FALSE TRUE
+```
+
+
+We hope this helps you simulate, test, and enjoy Blackjack in a fun and programmable way!
+
+🃏 Good luck at the virtual table!

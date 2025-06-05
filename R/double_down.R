@@ -4,6 +4,7 @@
 #'
 #' @param hand Character vector of player hand
 #' @param deck Character vector of remaining deck
+#' @param rule Character vector of the chosen rule for Ace scoring
 #'
 #' @return A list with:
 #' \describe{
@@ -13,7 +14,7 @@
 #' }
 #'
 #' @examples
-#' Example setup
+#' # Example setup
 #' hand <- c("5♠", "6♦")
 #' deck <- c("9♣", "10♦", "3♥")  # top of deck is 9♣
 #'
@@ -27,7 +28,6 @@
 #' double_down(c("5♠", "6♦", "2♥"), deck)
 #'
 #' @export
-#'
 double_down <- function(hand, deck, rule = "standard") {
   if (length(hand) != 2) {
     return(list(new_hand = hand, deck = deck, valid = FALSE))

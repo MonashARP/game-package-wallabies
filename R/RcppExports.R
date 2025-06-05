@@ -5,3 +5,7 @@ cpp_score_hand <- function(hand) {
     .Call(`_Blackjack_cpp_score_hand`, hand)
 }
 
+cpp_score_hand_dynamic <- function(hand, rule = "standard") {
+    .Call(`_Blackjack_cpp_score_hand_dynamic`, hand, rule)
+}
+

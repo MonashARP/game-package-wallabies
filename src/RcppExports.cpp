@@ -21,9 +21,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// cpp_score_hand_dynamic
+int cpp_score_hand_dynamic(CharacterVector hand, std::string rule);
+RcppExport SEXP _Blackjack_cpp_score_hand_dynamic(SEXP handSEXP, SEXP ruleSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type hand(handSEXP);
+    Rcpp::traits::input_parameter< std::string >::type rule(ruleSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_score_hand_dynamic(hand, rule));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_Blackjack_cpp_score_hand", (DL_FUNC) &_Blackjack_cpp_score_hand, 1},
+    {"_Blackjack_cpp_score_hand_dynamic", (DL_FUNC) &_Blackjack_cpp_score_hand_dynamic, 2},
     {NULL, NULL, 0}
 };
 

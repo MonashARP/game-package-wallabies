@@ -1,34 +1,29 @@
 library(testthat)
 
-test_that("score_hand_dynamic works with standard and custom rules", {
+test_that("cpp_score_hand_dynamic works for standard hands", {
+  expect_equal(cpp_score_hand_dynamic(c("A♠", "9♦")), 20)
+  expect_equal(cpp_score_hand_dynamic(c("10♣", "Q♦")), 20)
+  expect_equal(cpp_score_hand_dynamic(c("5♣", "6♦", "9♠")), 20)
+})
 
-  # Test 1: Standard Rule - Ace is 11 unless the total score is over 21
-  result_standard <- score_hand_dynamic(c("A♠", "9♣"))  # Expected: 20 (Ace is 11, 9 is 9)
-  expect_equal(result_standard, 20)
+test_that("cpp_score_hand_dynamic correctly handles multiple Aces (standard)", {
+  expect_equal(cpp_score_hand_dynamic(c("A♠", "A♦", "8♠")), 20)  # One Ace is 11, other is 1
+  expect_equal(cpp_score_hand_dynamic(c("A♠", "A♦", "A♣", "8♠")), 21)  # Two Aces as 1, one as 11
+})
 
-  result_standard_multiple_aces <- score_hand_dynamic(c("A♠", "A♦", "9♠"))  # Expected: 21 (Ace is 11, 9 is 9, total = 20)
-  expect_equal(result_standard_multiple_aces, 21)
+test_that("cpp_score_hand_dynamic works with custom rule (Ace always 1)", {
+  expect_equal(cpp_score_hand_dynamic(c("A♠", "9♦"), rule = "custom"), 10)
+  expect_equal(cpp_score_hand_dynamic(c("A♠", "A♦", "9♠"), rule = "custom"), 11)
+})
 
-  result_standard_bust <- score_hand_dynamic(c("A♠", "A♦", "A♣", "10♠"))  # Expected: 13 (Adjust the Aces to avoid bust)
-  expect_equal(result_standard_bust, 13)
+test_that("cpp_score_hand_dynamic busts over 21", {
+  expect_equal(cpp_score_hand_dynamic(c("K♠", "Q♦", "5♣")), 25)
+})
 
-  # Test 2: Custom Rule - Ace is always treated as 1
-  result_custom <- score_hand_dynamic(c("A♠", "9♣"), rule = "custom")  # Expected: 10 (Ace is treated as 1, 9 is 9)
-  expect_equal(result_custom, 10)
+test_that("cpp_score_hand_dynamic errors on invalid card rank", {
+  expect_error(cpp_score_hand_dynamic(c("Z♠", "10♠")), "Invalid card rank")
+})
 
-  result_custom_multiple_aces <- score_hand_dynamic(c("A♠", "A♦", "9♠"), rule = "custom")  # Expected: 11 (Ace is treated as 1)
-  expect_equal(result_custom_multiple_aces, 11)
-
-  result_custom_bust <- score_hand_dynamic(c("A♠", "A♦", "A♣", "10♠"), rule = "custom")  # Expected: 3 (All Aces treated as 1)
-  expect_equal(result_custom_bust, 13)
-
-  # Test 3: Edge cases
-  result_no_aces <- score_hand_dynamic(c("10♠", "8♦"), rule = "custom")  # Expected: 18 (No Aces involved)
-  expect_equal(result_no_aces, 18)
-
-  result_only_ace <- score_hand_dynamic(c("A♠"), rule = "custom")  # Expected: 1 (Ace treated as 1)
-  expect_equal(result_only_ace, 1)
-
-  # Test 4: Invalid rule
-  expect_error(score_hand_dynamic(c("A♠", "9♣"), rule = "invalid"), "Unknown rule. Use 'standard' or 'custom'.")
+test_that("cpp_score_hand_dynamic errors on invalid rule", {
+  expect_error(cpp_score_hand_dynamic(c("A♠", "10♠"), rule = "weird"), "Unknown rule")
 })
