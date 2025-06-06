@@ -8,11 +8,11 @@
 <title>Blackjack_Wallabies • Blackjack</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
-<link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Blackjack_Wallabies">
-<meta name="description" content="This package simulates the classic casino game Blackjack with full features. It supports multiple players playing against a dealer and includes key actions like hitting, standing, doubling down, surrendering, splitting, and insurance. You can customize the number of players and decks. It works for both interactive play and testing game logic, making it great for learning or fun.">
-<meta property="og:description" content="This package simulates the classic casino game Blackjack with full features. It supports multiple players playing against a dealer and includes key actions like hitting, standing, doubling down, surrendering, splitting, and insurance. You can customize the number of players and decks. It works for both interactive play and testing game logic, making it great for learning or fun.">
+<meta name="description" content="Provides a modular, extensible framework to simulate and play Blackjack in R. Supports multiple players, interactive and programmatic play, standard and custom rules, and full set of player actions (hit, stand, split, double down, surrender, insurance). Includes S3 and vctrs support for custom card vectors, well-documented workflows, and robust result objects for analysis or teaching.">
+<meta property="og:description" content="Provides a modular, extensible framework to simulate and play Blackjack in R. Supports multiple players, interactive and programmatic play, standard and custom rules, and full set of player actions (hit, stand, split, double down, surrender, insurance). Includes S3 and vctrs support for custom card vectors, well-documented workflows, and robust result objects for analysis or teaching.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -32,12 +32,7 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/blackjack.html">Blackjack instruction</a></li>
-  </ul>
-</li>
+<li class="nav-item"><a class="nav-link" href="articles/index.html">Articles</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -55,23 +50,109 @@
 </h1></div>
 <p>This package provides a simple implementation of a Blackjack game with functionalities for card dealing, scoring, splitting hands, doubling down, insurance betting, and more. It allows players to interactively play a round of Blackjack with multiple players.</p>
 <div class="section level2">
-<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+<h2 id="id_-installation">🛠 Installation<a class="anchor" aria-label="anchor" href="#id_-installation"></a>
 </h2>
-<p>You can install the package from <a href="https://github.com/MonashARP/game-package-wallabies.git" class="external-link">GitHub</a> by either:</p>
-<ol style="list-style-type: decimal">
-<li>Cloning the repository to your local machine:</li>
-</ol>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>git clone git<span class="sc">@</span>github.com<span class="sc">:</span>MonashARP<span class="sc">/</span>game<span class="sc">-</span>package<span class="sc">-</span>wallabies.git</span></code></pre></div>
-<ol start="2" style="list-style-type: decimal">
-<li>Or downloading the ZIP file from GitHub and extracting it to a local folder. Then run:</li>
-</ol>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Install devtools if you haven't already</span></span>
+<p>You can install the package from <a href="https://github.com/MonashARP/game-package-wallabies.git">GitHub</a> by using <code>devtools</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Install devtools if not already installed</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
+<span><span class="co"># Install Blackjack from GitHub</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"MonashARP/game-package-wallabies"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="id_-features">✨ Features<a class="anchor" aria-label="anchor" href="#id_-features"></a>
+</h2>
+<p>🎮 Interactive multi-player gameplay</p>
+<p>🃏 Configurable number of decks</p>
+<p>✅ Official Blackjack rules:</p>
+<ul>
+<li><p>Surrender</p></li>
+<li><p>Double Down</p></li>
+<li><p>Insurance</p></li>
+<li><p>Split Hands</p></li>
+</ul>
+<p>🎯 Accurate hand scoring</p>
+<p>🤵 Dealer follows house logic</p>
+<p>🏁 End-of-round results and outcome summary</p>
+</div>
+<div class="section level2">
+<h2 id="id_-getting-started">🚀 Getting Started<a class="anchor" aria-label="anchor" href="#id_-getting-started"></a>
+</h2>
+<p>Here’s a quick example of how to start a Blackjack game interactively:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">Blackjack</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Start a full round of Blackjack</span></span>
+<span><span class="fu"><a href="reference/play_blackjack.html">play_blackjack</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>During the game, you’ll be prompted to enter:</p>
+<ul>
+<li><p>Number of players</p></li>
+<li><p>Number of decks</p></li>
+<li><p>Whether to hit, stand, surrender, double down, or split (depending on your hand)</p></li>
+</ul>
+<div class="section level4">
+<h4 id="id_-package-structure">📦 Package Structure<a class="anchor" aria-label="anchor" href="#id_-package-structure"></a>
+</h4>
+<table class="table">
+<colgroup>
+<col width="30%">
+<col width="70%">
+</colgroup>
+<thead><tr class="header">
+<th>Function</th>
+<th>Purpose</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code><a href="reference/create_board.html">create_board()</a></code></td>
+<td>Generates a shuffled deck of cards</td>
+</tr>
+<tr class="even">
+<td><code><a href="reference/deal_cards.html">deal_cards()</a></code></td>
+<td>Deals cards to players and dealer</td>
+</tr>
+<tr class="odd">
+<td><code><a href="reference/score_hand.html">score_hand()</a></code></td>
+<td>Calculates the score of a hand</td>
+</tr>
+<tr class="even">
+<td><code><a href="reference/player_split.html">player_split()</a></code></td>
+<td>Splits a hand if the two cards match</td>
+</tr>
+<tr class="odd">
+<td><code><a href="reference/double_down.html">double_down()</a></code></td>
+<td>Performs a double-down action</td>
+</tr>
+<tr class="even">
+<td><code><a href="reference/surrender_hand.html">surrender_hand()</a></code></td>
+<td>Executes a surrender decision</td>
+</tr>
+<tr class="odd">
+<td><code><a href="reference/dealer_play.html">dealer_play()</a></code></td>
+<td>Implements the dealer’s turn logic</td>
+</tr>
+<tr class="even">
+<td><code><a href="reference/insurance_bet.html">insurance_bet()</a></code></td>
+<td>Handles insurance option if dealer shows an Ace</td>
+</tr>
+<tr class="odd">
+<td><code><a href="reference/announce_winner.html">announce_winner()</a></code></td>
+<td>Compares scores and determines outcomes</td>
+</tr>
+<tr class="even">
+<td><code><a href="reference/play_blackjack.html">play_blackjack()</a></code></td>
+<td>Runs the full interactive game</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section level2">
+<h2 id="id_-play-now">🎮 Play Now<a class="anchor" aria-label="anchor" href="#id_-play-now"></a>
+</h2>
+<p>Explore the gameplay, test your strategy, and try your luck — enjoy Blackjack in R!</p>
+<p>Good luck, and may the odds be in your favor! 🍀🃏</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
@@ -93,9 +174,9 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Sarah Liu <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Christy Lai <br><small class="roles"> Author </small>  </li>
-<li>Aditya Santosh Rao <br><small class="roles"> Author </small>  </li>
+<li>Sarah Liu <br><small class="roles"> Author, maintainer </small>   </li>
+<li>Christy Lai <br><small class="roles"> Author </small>   </li>
+<li>Aditya Santosh Rao <br><small class="roles"> Author </small>   </li>
 </ul>
 </div>
 
@@ -110,7 +191,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>

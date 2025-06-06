@@ -1,4 +1,54 @@
-url: ~
 template:
   bootstrap: 5
 
+navbar:
+  structure:
+    left:
+      - home
+      - reference
+      - articles
+
+articles:
+  - title: "Getting Started"
+    contents:
+      - blackjack
+  - title: "Design Principles"
+    contents:
+      - DesignPrinciples
+  - title: "Team"
+    contents:
+      - TeamContributions
+
+reference:
+  - title: "Game Setup"
+    contents:
+      - create_board
+      - deal_cards
+  - title: "Gameplay"
+    contents:
+      - play_blackjack
+      - dealer_play
+      - announce_winner
+  - title: "Player Actions"
+    contents:
+      - player_split
+      - double_down
+      - insurance_bet
+      - surrender_hand
+  - title: "Scoring and Utilities"
+    contents:
+      - score_hand
+      - card_vector
+      - card_rank
+      - card_suit
+      - card_is_face
+      - as.character.card_vector
+      - format.card_vector
+      - vec_cast.card_vector.card_vector
+      - vec_cast.card_vector.character
+      - vec_cast.character.card_vector
+      - vec_ptype2.card_vector.card_vector
+
+
+url: https://github.com/MonashARP/game-package-wallabies
+logo: man/figures/Blackjack.png

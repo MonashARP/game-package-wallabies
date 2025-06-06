@@ -1,5 +1,5 @@
 ---
-title: "title = Team Contributions Statement"
+title: "Team Contributions Statement"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{title = Team Contributions Statement}
@@ -37,7 +37,7 @@ vignette: >
 - Developed vignettes
 
 ### Aditya
-- Dafted C++
+- Drafted C++
 - Drafted vignettes for Design principles
 
 ### Christy
