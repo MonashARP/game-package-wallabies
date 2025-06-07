@@ -26,23 +26,23 @@ The arguments for the functions are designed to be intuitive, minimizing the nee
 ### Usage of Non-standard evaluation and C++
 
 
-####Non-standard evaluation (NSE)** 
+#### **Non-standard evaluation (NSE)** 
 NSE is used to capture and evaluate user input dynamically (e.g., “Hit” or “Stand”), allowing for flexible game flow and extending the package’s functionality. Modular functions, such as `player_split()` and `dealer_play()`, ensure that each game aspect is independent and easy to extend, making the codebase adaptable to new rules or features.
 
-#### C++ Integration for Performance Enhancement
+#### **C++ Integration for Performance Enhancement**
 The Blackjack package integrates C++ through the use of Rcpp to efficiently handle card scoring. Specifically, the cpp_score_hand function calculates the total score of a player's hand, iterating over the cards, mapping their ranks to values, and adjusting for Aces (counting them as either 1 or 11). This integration allows the package to offload computation-heavy tasks to C++, significantly improving the performance, especially when dealing with multiple players or simulations. By using a std::map to store card values and handling Aces dynamically, the C++ code is optimized for speed, making the game flow faster and smoother.
 
 The C++ function is seamlessly exposed to R, allowing users to invoke it directly through Rcpp's export functionality. This integration minimizes the overhead of R's native loops, ensuring that the hand-scoring operation is efficient even in computationally intense scenarios. Additionally, the R interface ensures that errors, such as invalid card ranks, are properly handled, providing a robust experience for users. The C++ integration thus serves as a performance enhancement, enabling the package to handle larger datasets or more rounds without compromising on responsiveness. Future enhancements could include additional optimizations or a deeper integration of C++ for other aspects of the game.
 
 
-### Generic functions
+### **Generic functions**
 - **Single-purpose functions**: Each exported function has one clear job (dealing, scoring, splitting, insurance, etc.), supporting easier testing and extension.
 - **Composability**: Outputs are lists or atomic values, so functions can be chained or combined.
 - **Explicit game workflow**: The `play_blackjack()` function orchestrates setup, player turns, dealer play, and scoring, reflecting the real rules of Blackjack.
 
 Each function is modular, with a clear and specific responsibility. This structure allows easy testing, modification, and extension of the package:
 
-#### Object-Oriented Design (S3/vctrs)
+#### **Object-Oriented Design (S3/vctrs)**
 
 - **Custom vctrs class**: Cards are represented by a custom `card_vector` S3/vctrs class. This enables:
   - Type safety for all card-related operations
@@ -66,7 +66,7 @@ Usage: Returns a character vector with suits extracted from the card_vector.
 Usage: Returns a logical vector indicating whether the card is a face card (TRUE for face cards, FALSE for others).
 
 
-#### Game Flow Functions
+#### **Game Flow Functions**
 These functions manage the overall game flow, starting the game, dealing cards, and managing the player's and dealer's turns.
 
 - `create_board()`: Generates a shuffled deck of cards with a specified number of decks and returns a shuffled deck as a character vector of card strings (e.g., "A♠", "10♣", "K♥").
@@ -79,7 +79,7 @@ These functions manage the overall game flow, starting the game, dealing cards, 
 
 - `play_blackjack()`: Starts an interactive game of Blackjack, prompting users for the number of players, decks, and actions like hit, stand, surrender, and double down, and runs the game loop managing player actions and dealer behavior.
 
-#### Betting Functions
+#### **Betting Functions**
 These functions manage the player's betting actions, such as doubling down, taking insurance, or surrendering.
 
 - `insurance_bet()`: Offers the player the option to take insurance if the dealer’s upcard is Ace. If accepted, it checks if the dealer has Blackjack and calculates the payout, returning the result of the insurance bet, including the payout and whether the insurance was successful.
@@ -97,7 +97,7 @@ These functions calculate the score of the player’s hand and manage the game's
 
 
 
-## User Workflow
+## **User Workflow**
 - **Interactive and scriptable**: Users can either step through the game interactively (`play_blackjack()`) or call lower-level functions for custom simulations or analyses.
 - **Defensive programming**: All functions check argument types/lengths and handle edge cases (e.g., invalid hands, out-of-bounds splits).
 - **Clear feedback**: Results are printed in a readable, game-like format (e.g., final hands, scores, win/lose messages).
@@ -130,23 +130,23 @@ The workflow is as follows:
 
 
 ## Limitations
-Test Coverage: The current tests focus on core mechanics but lack edge case handling (e.g., invalid inputs). Future work should improve test coverage to handle more complex scenarios.
+**Test Coverage:** The current tests focus on core mechanics but lack edge case handling (e.g., invalid inputs). Future work should improve test coverage to handle more complex scenarios.
 
-Gameplay Features: Advanced betting strategies (e.g., card counting, progressive betting) and multi-round tracking are not implemented. These features could be added for a richer experience.
+**Gameplay Features:** Advanced betting strategies (e.g., card counting, progressive betting) and multi-round tracking are not implemented. These features could be added for a richer experience.
 
-UI/UX: The text-based interface works but isn't ideal for larger groups. A GUI using shiny or ggplot2 would improve user experience.
+**UI/UX:** The text-based interface works but isn't ideal for larger groups. A GUI using shiny or ggplot2 would improve user experience.
 
-Multiplayer Functionality: Players are prompted sequentially. Supporting asynchronous input for larger groups could enhance gameplay.
+**Multiplayer Functionality:** Players are prompted sequentially. Supporting asynchronous input for larger groups could enhance gameplay.
 
 
 ## Alternative designs
-Object-Oriented Design (OOP): An OOP approach was considered but not implemented, as it would complicate the code unnecessarily. A function-based design was chosen for simplicity and flexibility.
+**Object-Oriented Design (OOP):** An OOP approach was considered but not implemented, as it would complicate the code unnecessarily. A function-based design was chosen for simplicity and flexibility.
 
-Interactive GUI: A GUI was considered but not implemented due to time constraints. A text-based interface was used for simplicity, though a GUI could be added in the future.
+**Interactive GUI:** A GUI was considered but not implemented due to time constraints. A text-based interface was used for simplicity, though a GUI could be added in the future.
 
-Real-Time Multiplayer: Real-time multiplayer via WebSockets was considered but not implemented to keep the project simpler. A sequential turn-based model was chosen for ease of use.
+**Real-Time Multiplayer:** Real-time multiplayer via WebSockets was considered but not implemented to keep the project simpler. A sequential turn-based model was chosen for ease of use.
 
-Modular Betting Strategies: Complex betting strategies (e.g., Martingale) were deferred to keep the game focused on basic actions. They could be added later for advanced users.
+**Modular Betting Strategies:** Complex betting strategies (e.g., Martingale) were deferred to keep the game focused on basic actions. They could be added later for advanced users.
 
 ## AI vs. human contributions
 The development of this package has been a collaborative effort involving both human expertise and AI assistance.
@@ -157,9 +157,11 @@ The development of this package was primarily driven by human expertise in craft
 ### AI contributions
 AI contributed significantly to the debugging and optimization phases of this project. It assisted in identifying and resolving errors encountered during test execution, particularly when running `devtools::check()` and resolving issues with the package loading process. Additionally, AI played a key role in optimizing the efficiency of functions, particularly when dealing with large datasets or complex operations such as scoring hands in the Blackjack game. By suggesting more efficient code structures and practices, it helped streamline the game’s logic and reduce redundant operations. Moreover, AI provided valuable guidance on integrating C++ functions, particularly in optimizing the score_hand_dynamic function. It assisted in resolving issues with the C++ code compilation and helped re-factor the function to handle card rank extraction and score calculation more efficiently, improving performance in scenarios involving large hands or multiple players. Through these contributions, AI helped enhance the functionality, performance, and overall robustness of the package.
 
-Christy: https://chatgpt.com/share/68416bd1-d9d4-8004-a789-99d59d1aa70a
-Sarah: https://chatgpt.com/share/68417063-9450-8004-8166-93f23327fa4a
-Aditya: https://chatgpt.com/share/6842737a-0728-8011-a4f8-ef08fb7c35bd
+- Christy: https://chatgpt.com/share/68416bd1-d9d4-8004-a789-99d59d1aa70a
+
+- Sarah: https://chatgpt.com/share/68417063-9450-8004-8166-93f23327fa4a
+
+- Aditya: https://chatgpt.com/share/6842737a-0728-8011-a4f8-ef08fb7c35bd
 
 
 
