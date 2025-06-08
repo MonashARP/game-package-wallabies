@@ -25,4 +25,4 @@ LinkingTo: Rcpp
 Imports: 
     Rcpp,
     vctrs
-
+Github: https://monasharp.github.io/game-package-wallabies
