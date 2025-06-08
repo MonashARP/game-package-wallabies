@@ -29,7 +29,7 @@ This vignette will walk you through:
 - How to use individual functions
 
 
-## ⚙️ Setup
+# ⚙️ Setup
 
 To start using the Blackjack package, you need to install it. If you haven't done so yet, you can install the package from [GitHub](https://github.com/MonashARP/game-package-wallabies.git). For detailed instructions, please refer to the installation guide on the homepage.
 
@@ -78,7 +78,9 @@ This function allows you to play a full interactive game of Blackjack. This func
 4. **Outcome**: Announces the winner for each player based on the final hand values.
 
 ## Example Gameplay
+
 To play a full interactive round of Blackjack, run:
+
 ```{r eval=FALSE}
 play_blackjack()
 ```
@@ -144,6 +146,7 @@ Here’s what a typical interactive session might look like when running `play_b
 This example illustrates how multiple players can take actions (hit, stand, surrender), and how the dealer automatically plays their hand. Results are calculated based on Blackjack rules and shown at the end of the round.
 
 # 🧩 Using Helper Functions
+
 You can also manually test or explore game logic using core functions:
 
 **Create Deck**
@@ -189,14 +192,18 @@ dealer_play(c("7♠", "9♦"), create_board())
 To manage cards in a more structured way, this package includes a custom vctrs-based class called card_vector. This class allows you to work with cards while maintaining strong type consistency and formatting.
 
 **Create a card vector**
+
 You can create a card_vector from a character vector of cards:
+
 ```{r}
 deck <- card_vector(c("A♠", "10♣", "K♥"))
 deck
 ```
 
 **Coercion Methods**
+
 You can safely convert between card_vector and base types using vctrs coercion:
+
 ```{r}
 # Convert to character
 as.character(deck)
@@ -219,7 +226,9 @@ card_is_face(deck)  # FALSE FALSE TRUE
 ```
 
 **Type Compatibility**
-The card_vector integrates smoothly with vctrs generics like vec_ptype2() and vec_cast():
+
+The card_vector integrates smoothly with vctrs generics like `vec_ptype2()` and `vec_cast()`:
+
 ```{r}
 vec_ptype2(deck, deck)
 vec_cast(deck, to = character())

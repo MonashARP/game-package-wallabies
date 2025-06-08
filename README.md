@@ -19,6 +19,8 @@ using `devtools`:
 install.packages("devtools")
 
 # Install Blackjack from GitHub
+library(devtools)
+
 devtools::install_github("MonashARP/game-package-wallabies")
 ```
 
