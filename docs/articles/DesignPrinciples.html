@@ -97,15 +97,20 @@ player’s choice.</p></li>
 <div class="section level3">
 <h3 id="usage-of-non-standard-evaluation-and-c">Usage of Non-standard evaluation and C++<a class="anchor" aria-label="anchor" href="#usage-of-non-standard-evaluation-and-c"></a>
 </h3>
-<p>####Non-standard evaluation (NSE)** NSE is used to capture and
-evaluate user input dynamically (e.g., “Hit” or “Stand”), allowing for
-flexible game flow and extending the package’s functionality. Modular
-functions, such as <code><a href="../reference/player_split.html">player_split()</a></code> and
-<code><a href="../reference/dealer_play.html">dealer_play()</a></code>, ensure that each game aspect is independent
-and easy to extend, making the codebase adaptable to new rules or
-features.</p>
 <div class="section level4">
-<h4 id="c-integration-for-performance-enhancement">C++ Integration for Performance Enhancement<a class="anchor" aria-label="anchor" href="#c-integration-for-performance-enhancement"></a>
+<h4 id="non-standard-evaluation-nse">
+<strong>Non-standard evaluation (NSE)</strong><a class="anchor" aria-label="anchor" href="#non-standard-evaluation-nse"></a>
+</h4>
+<p>NSE is used to capture and evaluate user input dynamically (e.g.,
+“Hit” or “Stand”), allowing for flexible game flow and extending the
+package’s functionality. Modular functions, such as
+<code><a href="../reference/player_split.html">player_split()</a></code> and <code><a href="../reference/dealer_play.html">dealer_play()</a></code>, ensure that
+each game aspect is independent and easy to extend, making the codebase
+adaptable to new rules or features.</p>
+</div>
+<div class="section level4">
+<h4 id="c-integration-for-performance-enhancement">
+<strong>C++ Integration for Performance Enhancement</strong><a class="anchor" aria-label="anchor" href="#c-integration-for-performance-enhancement"></a>
 </h4>
 <p>The Blackjack package integrates C++ through the use of Rcpp to
 efficiently handle card scoring. Specifically, the cpp_score_hand
@@ -131,7 +136,8 @@ aspects of the game.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="generic-functions">Generic functions<a class="anchor" aria-label="anchor" href="#generic-functions"></a>
+<h3 id="generic-functions">
+<strong>Generic functions</strong><a class="anchor" aria-label="anchor" href="#generic-functions"></a>
 </h3>
 <ul>
 <li>
@@ -150,7 +156,8 @@ dealer play, and scoring, reflecting the real rules of Blackjack.</li>
 This structure allows easy testing, modification, and extension of the
 package:</p>
 <div class="section level4">
-<h4 id="object-oriented-design-s3vctrs">Object-Oriented Design (S3/vctrs)<a class="anchor" aria-label="anchor" href="#object-oriented-design-s3vctrs"></a>
+<h4 id="object-oriented-design-s3vctrs">
+<strong>Object-Oriented Design (S3/vctrs)</strong><a class="anchor" aria-label="anchor" href="#object-oriented-design-s3vctrs"></a>
 </h4>
 <ul>
 <li>
@@ -194,7 +201,8 @@ cards, FALSE for others).</p></li>
 </ul>
 </div>
 <div class="section level4">
-<h4 id="game-flow-functions">Game Flow Functions<a class="anchor" aria-label="anchor" href="#game-flow-functions"></a>
+<h4 id="game-flow-functions">
+<strong>Game Flow Functions</strong><a class="anchor" aria-label="anchor" href="#game-flow-functions"></a>
 </h4>
 <p>These functions manage the overall game flow, starting the game,
 dealing cards, and managing the player’s and dealer’s turns.</p>
@@ -219,7 +227,8 @@ managing player actions and dealer behavior.</p></li>
 </ul>
 </div>
 <div class="section level4">
-<h4 id="betting-functions">Betting Functions<a class="anchor" aria-label="anchor" href="#betting-functions"></a>
+<h4 id="betting-functions">
+<strong>Betting Functions</strong><a class="anchor" aria-label="anchor" href="#betting-functions"></a>
 </h4>
 <p>These functions manage the player’s betting actions, such as doubling
 down, taking insurance, or surrendering.</p>
@@ -255,7 +264,8 @@ returning a vector of outcomes for each player.</p></li>
 </div>
 </div>
 <div class="section level2">
-<h2 id="user-workflow">User Workflow<a class="anchor" aria-label="anchor" href="#user-workflow"></a>
+<h2 id="user-workflow">
+<strong>User Workflow</strong><a class="anchor" aria-label="anchor" href="#user-workflow"></a>
 </h2>
 <ul>
 <li>
@@ -321,33 +331,36 @@ rounds.</p></li>
 <div class="section level2">
 <h2 id="limitations">Limitations<a class="anchor" aria-label="anchor" href="#limitations"></a>
 </h2>
-<p>Test Coverage: The current tests focus on core mechanics but lack
-edge case handling (e.g., invalid inputs). Future work should improve
-test coverage to handle more complex scenarios.</p>
-<p>Gameplay Features: Advanced betting strategies (e.g., card counting,
-progressive betting) and multi-round tracking are not implemented. These
-features could be added for a richer experience.</p>
-<p>UI/UX: The text-based interface works but isn’t ideal for larger
-groups. A GUI using shiny or ggplot2 would improve user experience.</p>
-<p>Multiplayer Functionality: Players are prompted sequentially.
-Supporting asynchronous input for larger groups could enhance
-gameplay.</p>
+<p><strong>Test Coverage:</strong> The current tests focus on core
+mechanics but lack edge case handling (e.g., invalid inputs). Future
+work should improve test coverage to handle more complex scenarios.</p>
+<p><strong>Gameplay Features:</strong> Advanced betting strategies
+(e.g., card counting, progressive betting) and multi-round tracking are
+not implemented. These features could be added for a richer
+experience.</p>
+<p><strong>UI/UX:</strong> The text-based interface works but isn’t
+ideal for larger groups. A GUI using shiny or ggplot2 would improve user
+experience.</p>
+<p><strong>Multiplayer Functionality:</strong> Players are prompted
+sequentially. Supporting asynchronous input for larger groups could
+enhance gameplay.</p>
 </div>
 <div class="section level2">
 <h2 id="alternative-designs">Alternative designs<a class="anchor" aria-label="anchor" href="#alternative-designs"></a>
 </h2>
-<p>Object-Oriented Design (OOP): An OOP approach was considered but not
-implemented, as it would complicate the code unnecessarily. A
-function-based design was chosen for simplicity and flexibility.</p>
-<p>Interactive GUI: A GUI was considered but not implemented due to time
-constraints. A text-based interface was used for simplicity, though a
-GUI could be added in the future.</p>
-<p>Real-Time Multiplayer: Real-time multiplayer via WebSockets was
-considered but not implemented to keep the project simpler. A sequential
-turn-based model was chosen for ease of use.</p>
-<p>Modular Betting Strategies: Complex betting strategies (e.g.,
-Martingale) were deferred to keep the game focused on basic actions.
-They could be added later for advanced users.</p>
+<p><strong>Object-Oriented Design (OOP):</strong> An OOP approach was
+considered but not implemented, as it would complicate the code
+unnecessarily. A function-based design was chosen for simplicity and
+flexibility.</p>
+<p><strong>Interactive GUI:</strong> A GUI was considered but not
+implemented due to time constraints. A text-based interface was used for
+simplicity, though a GUI could be added in the future.</p>
+<p><strong>Real-Time Multiplayer:</strong> Real-time multiplayer via
+WebSockets was considered but not implemented to keep the project
+simpler. A sequential turn-based model was chosen for ease of use.</p>
+<p><strong>Modular Betting Strategies:</strong> Complex betting
+strategies (e.g., Martingale) were deferred to keep the game focused on
+basic actions. They could be added later for advanced users.</p>
 </div>
 <div class="section level2">
 <h2 id="ai-vs--human-contributions">AI vs. human contributions<a class="anchor" aria-label="anchor" href="#ai-vs--human-contributions"></a>
@@ -391,9 +404,11 @@ to handle card rank extraction and score calculation more efficiently,
 improving performance in scenarios involving large hands or multiple
 players. Through these contributions, AI helped enhance the
 functionality, performance, and overall robustness of the package.</p>
-<p>Christy: <a href="https://chatgpt.com/share/68416bd1-d9d4-8004-a789-99d59d1aa70a" class="external-link uri">https://chatgpt.com/share/68416bd1-d9d4-8004-a789-99d59d1aa70a</a>
-Sarah: <a href="https://chatgpt.com/share/68417063-9450-8004-8166-93f23327fa4a" class="external-link uri">https://chatgpt.com/share/68417063-9450-8004-8166-93f23327fa4a</a>
-Aditya: <a href="https://chatgpt.com/share/6842737a-0728-8011-a4f8-ef08fb7c35bd" class="external-link uri">https://chatgpt.com/share/6842737a-0728-8011-a4f8-ef08fb7c35bd</a></p>
+<ul>
+<li><p>Christy: <a href="https://chatgpt.com/share/68416bd1-d9d4-8004-a789-99d59d1aa70a" class="external-link uri">https://chatgpt.com/share/68416bd1-d9d4-8004-a789-99d59d1aa70a</a></p></li>
+<li><p>Sarah: <a href="https://chatgpt.com/share/68417063-9450-8004-8166-93f23327fa4a" class="external-link uri">https://chatgpt.com/share/68417063-9450-8004-8166-93f23327fa4a</a></p></li>
+<li><p>Aditya: <a href="https://chatgpt.com/share/6842737a-0728-8011-a4f8-ef08fb7c35bd" class="external-link uri">https://chatgpt.com/share/6842737a-0728-8011-a4f8-ef08fb7c35bd</a></p></li>
+</ul>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
