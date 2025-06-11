@@ -1,0 +1,28 @@
+Package: Blackjack
+Title: Blackjack_Wallabies
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Sarah", "Liu", , "sliu0246@student.monash.edu", role = c("aut", "cre")),
+    person("Christy", "Lai", , "wlai0012@student.monash.edu", role = c("aut")),
+    person("Aditya Santosh", ,"Rao","asan0096@student.monash.edu" , role = c("aut"))
+           )
+Description:  Provides a modular, extensible framework to simulate and play Blackjack in R. 
+    Supports multiple players, interactive and programmatic play, standard and custom rules, 
+    and full set of player actions (hit, stand, split, double down, surrender, insurance). 
+    Includes S3 and vctrs support for custom card vectors, well-documented workflows, 
+    and robust result objects for analysis or teaching.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+LinkingTo: Rcpp
+Imports: 
+    Rcpp,
+    vctrs
+URL: https://monasharp.github.io/game-package-wallabies
